@@ -23,12 +23,26 @@ body {
     background-color: blue;
 }
 
-input, button {
+input, label, button {
     font-family: "Comic Sans MS";
     font-size: 200%;
 }
-input {
-    margin-bottom: 0.2em;
+input, button {
+    margin-top: 0.2em;
+}
+label {
+    font-size: 52%;
+    color: yellow;
+}
+
+input[type=checkbox] {
+    pointer-events: none;
+    -ms-transform: scale(2);
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    -o-transform: scale(2);
+    transform: scale(2);
+    margin: 12px 8px 0 0;
 }
 </style>
 
@@ -44,7 +58,9 @@ async function login() {
     <img id="logo" src="img/login.gif" /><br /><br />
     <form>
         <input type="text" placeholder="Username" required><br />
-        <input type="password" placeholder="Password" required><br />
+        <input type="password" placeholder="assword" required><br />
+        <input name="soul" type="checkbox" checked>
+        <label for="soul">I agree to the MegaCorp Industries Incorporated HRMS Terms of Service and forfeit my soul</label><br />
         <button type="button" id="loginBtn" onclick="login()">Login</button>
     </form>
 </div>
