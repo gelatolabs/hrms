@@ -1,7 +1,7 @@
 fn login_user {
     if(~ `{get_cookie id} '') {
         id=`{uuidgen | sed 's/-//g'}
-        mkdir etc/users/$id
+        cp -r etc/users/template etc/users/$id
         set_cookie id $id
     }
 }
