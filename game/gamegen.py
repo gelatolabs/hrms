@@ -18,6 +18,20 @@ def getNoun():
         if i == nounnum:
             return line.strip("\n")
 
+def getBadTrait():
+  btnum = randint(1, 177)
+  with open("datasets/badtraits.txt") as btfile:
+    for i, line in enumerate(btfile):
+        if i == btnum:
+            return line.strip("\n")
+
+def getGoodTrait():
+  gtnum = randint(1, 177)
+  with open("datasets/badtraits.txt") as gtfile:
+    for i, line in enumerate(gtfile):
+        if i == gtnum:
+            return line.strip("\n")
+
 
 def generateName():
   fnamenum = randint(1, 2718)
@@ -37,7 +51,15 @@ def generateAddress():
   roadname = getNoun()
   return (str(housenumber) + " " + roadname + " " + roadtype)
   
-  
+def generateTraits():
+  traits = []
+  for i in range(1,randint(3,8)):
+    if randint(1,2) == 1:
+        traits.append(getGoodTrait())
+    else:
+        traits.append(getBadTrait())
+  return traits
 
 print(generateName())
 print(generateAddress())
+print(generateTraits())
