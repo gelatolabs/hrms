@@ -1,4 +1,5 @@
 import json
+import os
 from random import randint, randrange
 
 # Backend Game Functions for:
@@ -93,10 +94,27 @@ def generateSkills(goodness):
     else:
         skills.append(getBadSkill())
   return skills
+  
+def generateResume(name, address,guid):
+  emailID = str(randint(3,3000))
+  os.mkdir("../werc/etc/users/"+guid+"/emails/"+emailID)
+  texText = ""
+  with open("datasets/tex-templates/basic.tex", "r+", encoding="utf-8") as f:
+        texText = f.read()
+  texText = texText.replace("<<name>>", name)
+  texText = texText.replace("<<address>>", address)
+  
+  with open("../werc/etc/users/"+guid+"/emails/"+emailID+"/attachment.tex", "w+", encoding="utf-8") as f:
+        f.write(texText)
+  os.system("cd ../werc/etc/users/"+guid+"/emails/"+emailID+" && pdflatex attachment.tex")
 
-print(generateName())
-print(generateAddress())
+name = generateName()
+address = generateAddress()
+guid = "12345abcd"
+print(name)
+print(address)
 traitobject = generateTraits()
 print(traitobject[0])
 print("Goodness of person is " + str(traitobject[1]))
 print(generateSkills(traitobject[1]))
+generateResume(name,address,guid)
