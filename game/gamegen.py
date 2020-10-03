@@ -95,18 +95,24 @@ def generateSkills(goodness):
         skills.append(getBadSkill())
   return skills
   
-def generateResume(name, address,guid):
+def generateResumeEmail(name, address,guid):
   emailID = str(randint(3,3000))
-  os.mkdir("../werc/etc/users/"+guid+"/emails/"+emailID)
+  os.mkdir("../../etc/users/"+guid+"/emails/"+emailID)
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/sender", "w+", encoding="utf-8") as f:
+        f.write(name)  
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/subject", "w+", encoding="utf-8") as f:
+        f.write("Job Application") 
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/body", "w+", encoding="utf-8") as f:
+        f.write("<object class=\"objectembed\" data=\"/etc/users/"+guid+"/emails/"+emailID+"/attachment.pdf\" width=\"100%\" height=\"100%\" type=\"application/pdf\" style=\"margin: 0\" title=\"\">") 
   texText = ""
   with open("datasets/tex-templates/basic.tex", "r+", encoding="utf-8") as f:
         texText = f.read()
   texText = texText.replace("<<name>>", name)
   texText = texText.replace("<<address>>", address)
   
-  with open("../werc/etc/users/"+guid+"/emails/"+emailID+"/attachment.tex", "w+", encoding="utf-8") as f:
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/attachment.tex", "w+", encoding="utf-8") as f:
         f.write(texText)
-  os.system("cd ../werc/etc/users/"+guid+"/emails/"+emailID+" && pdflatex attachment.tex")
+  os.system("cd ../../etc/users/"+guid+"/emails/"+emailID+" && pdflatex attachment.tex")
 
 name = generateName()
 address = generateAddress()
@@ -117,4 +123,4 @@ traitobject = generateTraits()
 print(traitobject[0])
 print("Goodness of person is " + str(traitobject[1]))
 print(generateSkills(traitobject[1]))
-generateResume(name,address,guid)
+generateResumeEmail(name,address,guid)
