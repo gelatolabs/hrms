@@ -55,6 +55,10 @@ tr:last-child {
     padding: 0 1.5em 0.5em 1.5em;
 }
 
+.emailBtn:hover {
+    background-color: #ddd;
+    cursor: pointer;
+}
 .active {
     background-color: #ddd;
 }
