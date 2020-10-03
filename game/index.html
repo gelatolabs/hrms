@@ -49,6 +49,7 @@ input[type=checkbox] {
 <script>
 async function login() {
     document.getElementById("loginBtn").innerHTML = "Close enough...";
+    document.cookie = "username=" + document.getElementById("username").value + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
     await new Promise(r => setTimeout(r, 1500));
     window.location.href = "hrms.html"
 }
@@ -57,7 +58,7 @@ async function login() {
 <div class="center">
     <img id="logo" src="img/login.gif" /><br /><br />
     <form>
-        <input type="text" placeholder="Username" required><br />
+        <input id="username" type="text" placeholder="Username" required><br />
         <input type="password" placeholder="assword" required><br />
         <input name="soul" type="checkbox" checked>
         <label for="soul">I agree to the MegaCorp Industries Incorporated HRMS Terms of Service and forfeit my soul</label><br />
