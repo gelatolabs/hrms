@@ -79,8 +79,11 @@ tr:last-child {
         Trash
     </td></tr>
     <tr style="height: auto"><td></td></tr>
-    <tr style="height: 0"><td>
-        %($username%)
+    <tr style="height: 0"><td style="text-align: center">
+        <span>%($username%)</span><br />
+        <img src="img/health-%(`{cat $userdir/health}%).png" style="width: 100%" /><br />
+        <label for="health">Mental Health</label><br />
+        <progress id="health" value="%(`{cat $userdir/health}%)" max="100"></progress>
     </td></tr>
 </table></td>
 <td class="noborder"><div style="width: 25vw"><table style="width: 100%">
