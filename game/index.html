@@ -5,7 +5,8 @@
 }
 
 body {
-    background-color: red;
+    font-family: "Comic Sans MS";
+    background-image: url("img/login-box.png");
 }
 
 #logo {
@@ -18,9 +19,13 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
-    border: 8px outset yellow;
-    padding: 24px;
-    background-color: blue;
+    border: 8px outset #e6e6e6;
+    padding: 24px 48px;
+    background-image: url("img/login-bg.png");
+}
+
+button {
+    border: 4px outset #e6e6e6;
 }
 
 input, label, button {
@@ -31,8 +36,7 @@ input, button {
     margin-top: 0.2em;
 }
 label {
-    font-size: 52%;
-    color: yellow;
+    font-size: 50%;
 }
 
 input[type=checkbox] {
@@ -51,17 +55,17 @@ async function login() {
     document.getElementById("loginBtn").innerHTML = "Close enough...";
     document.cookie = "username=" + document.getElementById("username").value + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
     await new Promise(r => setTimeout(r, 1500));
-    window.location.href = "hrms.html"
+    window.location.href = "hrms"
 }
 </script>
 
 <div class="center">
-    <img id="logo" src="img/login.gif" /><br /><br />
+    <h1>MegaCorp Industries<br />Incorporated HRMS&reg;</h1>
     <form>
         <input id="username" type="text" placeholder="Username" required><br />
         <input type="password" placeholder="assword" required><br />
         <input name="soul" type="checkbox" checked>
-        <label for="soul">I agree to the MegaCorp Industries Incorporated HRMS Terms of Service and forfeit my soul</label><br />
+        <label for="soul">I agree to the MegaCorp Industries Incorporated HRMS Terms of Service and forfeit my soul.</label><br /><br />
         <button type="button" id="loginBtn" onclick="login()">Login</button>
     </form>
 </div>
