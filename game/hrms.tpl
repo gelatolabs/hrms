@@ -78,6 +78,30 @@ tr:last-child {
     background-color: #ebf9ff;
     box-shadow: 3px 0px 0px #9ddfff inset;
 }
+
+#actions {
+    text-align: center;
+}
+#actions input {
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 16px 24px;
+    margin: 0.5em 0.2em 1em;
+    font-size: 175%;
+}
+#actions input:hover {
+    opacity: 0.75;
+    cursor: pointer;
+}
+#actions input.hire {
+    background-color: #4caf50;
+    border: 3px solid #419544;
+}
+#actions input.reject {
+    background-color: #f44336;
+    border: 3px solid #cf392e;
+}
 </style>
 
 <div id="header">
@@ -126,6 +150,13 @@ tr:last-child {
     </td></tr>
     <tr><td id="emailbody">
         %(`{tpl_handler $userdir/emails/$email/body}%)
+%       switch(`{cat $userdir/emails/$email/type}) {
+%       case application
+        <form id="actions" method="POST" action="">
+            <input name="action" type="submit" value="Hire" class="hire">
+            <input name="action" type="submit" value="Reject" class="reject">
+        </form>
+%       }
     </td></tr>
 </table></div></td>
 </tr></table>
