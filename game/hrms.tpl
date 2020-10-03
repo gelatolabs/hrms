@@ -26,12 +26,12 @@ table {
 }
 td {
     vertical-align: baseline;
-    border: 1px solid #d4dbde;
+    box-shadow: 0px 0px 0px 1px #d4dbde inset;
     padding: 6px;
 }
 td.noborder {
     padding: 0;
-    border: none;
+    box-shadow: none;
 }
 tr {
     height: 0;
@@ -49,7 +49,7 @@ tr:last-child {
 }
 
 #emaildetails td {
-    border: none;
+    box-shadow: none;
     padding: 0 6px 0 0;
 }
 #emailbody {
@@ -62,12 +62,12 @@ tr:last-child {
 }
 .active {
     background-color: #ebf9ff;
-    border-left: 2px solid #9ddfff;
+    box-shadow: 3px 0px 0px #9ddfff inset;
 }
 </style>
 
 <table id="maintable"><tr>
-<td class="noborder"><table style="width: 14vw">
+<td class="noborder"><div style="width: 14vw"><table style="width: calc(100% + 1px)">
     <tr><td>
         <span>Inbox</span>
     </td></tr>
@@ -88,7 +88,7 @@ tr:last-child {
         <label for="health">Mental Health</label><br />
         <progress id="health" value="%(`{cat $userdir/health}%)" max="100"></progress>
     </td></tr>
-</table></td>
+</table></div></td>
 <td class="noborder"><div style="width: 25vw"><table style="width: calc(100% + 1px)">
 %   for(i in `{ls -tp $userdir/emails}) {
     <tr class="emailBtn %(`{if(~ $email $i) echo 'active'}%)" onclick="openEmail(%($i%))"><td>
@@ -99,7 +99,7 @@ tr:last-child {
 %   }
     <tr><td></td></tr>
 </table></div></td>
-<td class="noborder"><div style="width: 61vw"><table style="width: 100%">
+<td class="noborder"><div style="width: 61vw"><table style="width: calc(100% + 1px)">
     <tr style="background-color: #f4f4f4"><td>
         <table style="height: auto" id="emaildetails">
           <tr><td style="text-align: right">From:</td><td>%(`{cat $userdir/emails/$email/sender}%)</td></tr>
