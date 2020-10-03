@@ -1,0 +1,9 @@
+% This is docinfo.out
+\catcode`\@=0
+@catcode`@\=12
+@def@PDFTITLE{pdfLaTeX による日本語組版}
+@def@PDFSUBJECT{pdfLaTeX と日本語}
+@def@PDFAUTHOR{角藤 亮}
+@def@PDFKEYWORDS{TeX, PDF, pdfLaTeX, ポストスクリプト, ums パッケージ}
+@catcode`@\=0
+\catcode`\@=12

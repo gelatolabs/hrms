@@ -1,0 +1,238 @@
+                       pdfTeX for Win32 について
+
+(1) 始めに
+
+pdfTeX-1.40.21 を Win32(x86) 用に Visual Studio 2010 で Make したもの
+です。デフォルトで直接PDF を出力するようにしていますが、ソースで
+\pdfoutput=0 とすれば、PDF でなくて DVI を出力します。
+
+(2) pdfTeX での TrueType フォント使用法
+
+pdfTeX では Type 1 fonts に加えて、TrueType fonts も使用することが
+できます。以下にその方法を説明します。
+
+1. 付属の ドライバプログラム ttftotfm.exe を次のように使って tfm
+   と vf ファイルを作ります:
+
+   例 : ttftotfm arial.ttf 8r.enc arial8t arial8r
+
+   (ttftotfm の 使用法は後で説明します。)
+
+   上のコマンドを実行する場合，ttf フォントファイル や Encoding ファイル 
+   は Kpathsearch 機構で探すようにしているので、カレントディレクトリに
+   コピーしておく必要はありません。こうしてできた tfm ファイル
+   (例では arial8t.tfm と arial8r.tfm) を TEXMF tree の適当な場所
+   (texmf-local/fonts/tfm/windows/arial など) に移動しておきます。また vf
+   ファイル (今の例では arial8t.vf) を texmf-local/fonts/vf/windows/arial
+   に移動しておきます。
+   
+   ttftotfm.exe は次の三つのコマンドを内部から実行しているにすぎません:
+
+   ttf2afm -e 8r.enc -o arial8t.afm arial.ttf
+   afm2tfm arial8t.afm -t 8r.enc -p 8r.enc -v arial8t.vpl arial8r.tfm
+   vptovf arial8t.vpl arial8t.vf arial8t.tfm
+
+2. texmf-dist/fonts/map/pdftex/updmap/pdftexdl14-base.map
+   texmf-dist/fonts/map/pdftex/updmap/pdftexndl14-base.map
+   の二つのファイルを，自分用の
+   texmf-local/fonts/map/pdftex/updmap/pdftexdl14-base.map
+   texmf-local/fonts/map/pdftex/updmap/pdftexndl14-base.map
+   にコピーして，それらを編集して次のようなエントリを追加します:
+
+   arial8r ArialMT  <8r.enc <arial.ttf
+
+   この記述をするためのヒントは、1. で tfm ファイルを作るときに
+   表示されます。このエントリを有効にするには (必要なら mktexlsr コマンド
+   を実行した後) updmap コマンドを実行します。以上で pdfTeX ソースで (上の
+   例では arial8t なる名前で) TrueType フォントが使用できるようになります。
+   勿論日本語 TrueType フォントは使用不可です。
+   
+   例 :  \font\exam=arial8t at 48pt
+         {\exam This is a test of TrueType fonts in pdf\TeX.}
+         \bye
+
+   さて、上の 1. では必ず encoding file が必要ですが、
+   適当な encoding file が無いときには
+   ttf2afm -c encname -e texnansi.enc ttfname.ttf >nul
+   とすると encname.eMN (MN は数字) なる名前の encoding file が得られます。
+   ディレクトリ texmf-dist/doc/pdftex/base に入れてある wingding.enc は
+   ttf2afm -c wingding -e texnansi.enc wingding.ttf >nul
+   としてできた wingding.e10 の名前を wingding.enc に変更し、
+   /WingdingsEncoding [
+   という行だけ手で編集して作成したものです。
+   ファイル wingding.enc を texmf-local/fonts/enc/pdftex/wingding なる
+   ディレクトリに入れておけば
+   
+   ttftotfm wingding.ttf wingding.enc wingding
+
+   とすると、wingding.tfm, rwingding.tfm, wingding.vf  ができるので、
+   これらを texmf-local/fonts/tfm/windows/misc と
+   texmf-local/fonts/vf/windows/misc
+   に移動し、texmf-local/fonts/map/pdftex/updmap/pdftexdl14-base.map,
+   texmf-local/fonts/map/pdftex/updmap/pdftexndl14-base.map に
+
+   rwingding Wingdings-Regular <wingding.enc <wingding.ttf
+
+   と記述してから updmap コマンドを実行すると、wingding.ttf を pdfTeX
+   で使用できるようになります。どのコードが何に対応するかは wingding.enc
+   から大体わかると思います。( \char255 は Windows Logo です )。
+   詳しくは wingding.pdf をご覧下さい。
+
+   最後に ttftotfm コマンドの使用法を記します。
+
+   (a) ttftotfm TTFfile.ttf ENCfile TeXfontname MapFontname
+   (b) ttftotfm TTFfile.ttf ENCfile TeXfontname
+   (c) ttftotfm TTFfile.ttf ENCfile
+
+   の三つの使用法があります。
+   (a) が一番一般的な使用法です。
+
+   TTFfile.ttf は TrueType font ファイル名です。
+   ENCfile     は encoding ファイル名です。
+   TeXfontname は TeX で使用するときのフォント名です。
+   MapFontname は pdftex.map に記述するときのフォント名です。
+
+   (b) のように使用すると，MapFontname は TeXfontname の先頭に r
+       をくっつけたものとなります。
+   (c) のように使用すると，TeXfontname は TTFfile.ttf から拡張子
+       をとり除いた TTFfile となり，MapFontname は 先頭に r を
+       くっつけた rTTFfile となります。
+
+   ttf2afm コマンドは，引数なしで実行すると使用法を表示します。
+
+
+(3) 付録 1
+   poppler utilities を 13 個入れておきます。
+   pdfattach.exe    pdfdetach.exe   pdffonts.exe    pdfimages.exe
+   pdfinfo.exe      pdfseparate.exe pdfsig.exe      pdftocairo.exe
+   pdftohtml.exe    pdftoppm.exe    pdftops.exe     pdftotext.exe
+   pdfunite.exe
+   それぞれ，texdoc pdfdetach などとすると，マニュアルを表示します。
+
+(4) 付録 2
+   pdflatex で日本語を扱う方法。
+   Windows 上に限りますが、pdflatex で日本語を含むソース を pdf に変換
+   できるようにしてみました。サンプルは texmf-dist/doc/pdftex/jpdftex
+   にあります。
+   条件:
+       omegaj-w32.tar.xz をインストールし、msmin??.tfm, msgoth??.tfm
+       (?? は二桁の16進文字です) なる tfm フォントをインストール済みであること。
+       また、稲垣淳さんによる ums パッケージ (ums.tar.xz) をインストール
+       してあること。また、TrueType Collection (.ttc) でない、適当な日本語
+       TrueType フォントが存在すること。(OS にインストールしてなくてもよい)。
+       Free で入手可能な、IPA フォントが適当でしょう。
+       以前は msmin??.pfb, msgoth??.pfb なる Type1 フォントを準備しておく
+       必要がありましたが、最新版では、サブフォント機構が使えるので、始め
+       のほうに
+       \pdfmapline{=msmin@Unicode@ <ipam.ttf}
+       \pdfmapline{=msgoth@Unicode@ <ipag.ttf}
+       のように記述しておくと、 TrueType フォントを直接埋め込むことができます。
+       但しこの場合、出来上がった pdf から日本語文字を探したりすることは
+       できません。一方 omegaj-w32.tar.xz で提供しているバッチファイルを実行して、
+       msmin??.pfb, msgoth??.pfb を作成してある場合には、ソースに
+       \input jpdftextounicode
+       \pdfgentounicode=1
+       と書いておくと、出来上がった pdf は本物の日本語 pdf となって、日本語
+       文字列の検索などもできます。もちろんこの場合には、ソースに
+       \pdfmapline{=msmin@Unicode@ <ipam.ttf}
+       \pdfmapline{=msgoth@Unicode@ <ipag.ttf}
+       と書いたらいけません。また、msmin??.pfb, msgoth??.pfb は、"現在の"
+       omegaj-w32.tar.xz で提供しているバッチファイルで作成したものでなくては
+       いけません。以前提供していたバッチファイルで作成したものや、
+       TeXTrace で作成したものは使用できません。jpdftextounicode.tex は
+       グリフ名と Unicopde との対応表であり、グリフ名をこの表と一致させる
+       ためには、現在提供しているバッチファイルで Type1 フォントを作成
+       する必要があるのです。
+   実現法:
+       編集した、オリジナルの日本語を含む LaTeX 文書 (e.g., org.tex) を、
+       プログラム topdftex.exe によって、pdflatex が理解できる
+       もの (e.g., pdfsrc.tex) に変換します。org.tex では必ず
+       \usepackage{ums}
+       をプリアンブルに記述しておきます。 topdftex.exe は pdftex-w32.tar.xz
+       に同梱しています。ums.sty は、稲垣淳さんによるものを少し拡張して、
+       日本語 pdfLaTeX 用にも使用できるようにしたものです。
+       topdftex org.tex pdfsrc.tex
+       pdflatex pdfsrc
+       pdflatex pdfsrc
+       により、pdfsrc.pdf が作成されます。
+       例えば、
+
+       \documentclass[12pt]{article}
+       \usepackage{ums}
+       \begin{document}
+       \pdfmapline{=msmin@Unicode@ <ipam.ttf}
+       \pdfmapline{=msgoth@Unicode@ <ipag.ttf}
+       これは、
+       pdf\TeX
+       で日本語を
+       扱ってみた
+       ものです。
+       \end{document}
+
+       を topdftex.exe で変換すると
+
+       \documentclass[12pt]{article}
+       \usepackage{ums}
+       \begin{document}
+       \pdfmapline{=msmin@Unicode@ <ipam.ttf}
+       \pdfmapline{=msgoth@Unicode@ <ipag.ttf}
+       \UMS{3053}\UMS{308C}\UMS{306F}\PREUMS{3001}%
+       pdf\TeX
+       \UMS{3067}\UMS{65E5}\UMS{672C}\UMS{8A9E}\UMS{3092}%
+       \UMS{6271}\UMS{3063}\UMS{3066}\UMS{307F}\UMS{305F}%
+       \UMS{3082}\UMS{306E}\UMS{3067}\UMS{3059}\PREUMS{3002}%
+       \end{document}
+
+       のように、日本語文字は全てコマンドで置き換えられます。これらの
+       コマンドは ums.sty で定義されています。
+   日本語しおり作成法:
+       hyperref で bookmarks を付ける場合にも、最新の ums パッケージと
+       最新の out2uni.exe を使用すると、極めて簡単に日本語しおりを
+       作成することができます。ます、topdftex.exe によって変換済みの
+       pdfsrc.tex を、クロスリファレンスが解決するまで必要回数
+       (通常 2 回、多い場合は 3 回) pdflatex にかけます。
+       次に、dvipdfm-w32.tar.xz に入っている out2uni.exe を使って、一回だけ
+       out2uni pdfsrc
+       としてやります。これにより、pdf 文字列が Unicode に変換されます。
+       そうして最後に
+       pdflatex pdfsrc
+       とすると、日本語しおりを含む pdf が出力されます。
+       このディレクトリに入っている jpdfsample.pdf はこのようにして作成
+       した、日本語しおり付きの簡単な pdf です。jpdforg.tex がオリジナルの
+       ソースで、jpdfsample.tex は
+       topdftex jpdforg.tex jpdfsample.tex
+       によって変換されたソースです。
+       なお、使用クラスや、パッケージは欧文用のものを使うことに注意して
+       下さい。たとえばアーティクルの場合、
+       \documentclass{jarticle}
+       ではなくて
+       \documentclass{article}
+       で始めます。
+       topdftex での変換作業が必要なので、面倒なようですが、Makefile などを
+       使用すると、訂正を頻繁にする場合でもそれほど面倒
+       ではありません。例えば、この文書自身は
+#
+# Makefile for jpdfsample.pdf
+# (standard Windows) (cmd.exe or command.com)
+#
+all: jpdfsample.pdf
+jpdfsample.pdf: jpdfsample.tex
+	pdflatex jpdfsample
+	pdflatex jpdfsample
+	out2uni jpdfsample
+	pdflatex jpdfsample
+jpdfsample.tex: jpdforg.tex
+	topdftex jpdforg.tex jpdfsample.tex
+test: jpdfsample.pdf
+	pdfview jpdfsample
+clean:
+	del jpdfsample.*
+	del *~
+
+       のような Makefile を作っておくと、jpdforg.tex を訂正し終わったとき、
+       make とするだけで、全ての作業は自動的になされます。
+       make 成功した場合、仕上がり具合を見るには make test とします。
+       pdfview というのは Acrobat Reader を立ち上げるものと仮定します。
+
+-- 
+A. Kakuto

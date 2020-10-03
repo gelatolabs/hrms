@@ -1,0 +1,27 @@
+#
+# Makefile for jpdfsample.pdf
+#
+SHELL=sh
+jpdfsample.pdf: jpdfsample.tex docinfo.txt
+	rm *.aux *.out *.log *.toc
+	cp docinfo.txt docinfo.out
+	out2uni docinfo
+	pdflatex jpdfsample
+	(while egrep '^LaTeX Warning: Label' jpdfsample.log; \
+	   do \
+	       pdflatex jpdfsample; \
+           done)
+	out2uni jpdfsample
+	pdflatex jpdfsample
+
+jpdfsample.tex: jpdforg.tex
+	topdftex jpdforg.tex jpdfsample.tex
+
+test: jpdfsample.pdf
+	pdfview jpdfsample
+
+clean:
+	rm -f jpdfsample.* *~
+
+install:
+	./instdoc.sh
