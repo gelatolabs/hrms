@@ -10,6 +10,7 @@ if not
 
 <style>
 body {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
     overflow: hidden;
 }
 
@@ -25,7 +26,7 @@ table {
 }
 td {
     vertical-align: baseline;
-    border: 1px solid #000;
+    border: 1px solid #d4dbde;
     padding: 6px;
 }
 td.noborder {
@@ -56,37 +57,39 @@ tr:last-child {
 }
 
 .emailBtn:hover {
-    background-color: #ddd;
+    background-color: #ebf9ff;
     cursor: pointer;
 }
 .active {
-    background-color: #ddd;
+    background-color: #ebf9ff;
+    border-left: 2px solid #9ddfff;
 }
 </style>
 
 <table id="maintable"><tr>
 <td class="noborder"><table style="width: 14vw">
     <tr><td>
-        Inbox
+        <span>Inbox</span>
     </td></tr>
     <tr class="active"><td>
-        Spam
+        <span><strong>Spam</strong></span>
+        <span style="float: right"><strong>%(`{ls $userdir/emails | wc -l}%)</strong></span>
     </td></tr>
     <tr><td>
-        Sent
+        <span>Sent</span>
     </td></tr>
     <tr><td>
-        Trash
+        <span>Trash</span>
     </td></tr>
     <tr style="height: auto"><td></td></tr>
     <tr style="height: 0"><td style="text-align: center">
-        <span>%($username%)</span><br />
-        <img src="img/health-%(`{cat $userdir/health}%).png" style="width: 100%" /><br />
+        <span><strong>%($username%)</strong></span><br />
+        <img src="img/health-%(`{cat $userdir/health}%).png" style="width: 100%; margin-top: 8px" /><br />
         <label for="health">Mental Health</label><br />
         <progress id="health" value="%(`{cat $userdir/health}%)" max="100"></progress>
     </td></tr>
 </table></td>
-<td class="noborder"><div style="width: 25vw"><table style="width: 100%">
+<td class="noborder"><div style="width: 25vw"><table style="width: calc(100% + 1px)">
 %   for(i in `{ls -tp $userdir/emails}) {
     <tr class="emailBtn %(`{if(~ $email $i) echo 'active'}%)" onclick="openEmail(%($i%))"><td>
         <span><strong>%(`{cat $userdir/emails/$i/subject}%)</strong></span><br />
@@ -97,11 +100,11 @@ tr:last-child {
     <tr><td></td></tr>
 </table></div></td>
 <td class="noborder"><div style="width: 61vw"><table style="width: 100%">
-    <tr><td>
+    <tr style="background-color: #f4f4f4"><td>
         <table style="height: auto" id="emaildetails">
-          <tr><td>Subject:</td><td><strong>%(`{cat $userdir/emails/$email/subject}%)</strong></td></td>
-          <tr><td>From:</td><td>%(`{cat $userdir/emails/$email/sender}%)</td></tr>
-          <tr><td>Date:</td><td>%(`{/bin/date -r $userdir/emails/$email/body}%)</td></tr>
+          <tr><td style="text-align: right">From:</td><td>%(`{cat $userdir/emails/$email/sender}%)</td></tr>
+          <tr><td style="text-align: right">Date:</td><td>%(`{/bin/date -r $userdir/emails/$email/body}%)</td></tr>
+          <tr><td style="text-align: right">Subject:</td><td><strong>%(`{cat $userdir/emails/$email/subject}%)</strong></td></td>
         </table>
     </td></tr>
     <tr><td id="emailbody">
