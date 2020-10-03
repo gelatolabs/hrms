@@ -1,5 +1,6 @@
 import json
 import os
+import sys
 from random import randint, randrange
 
 # Backend Game Functions for:
@@ -95,13 +96,17 @@ def generateSkills(goodness):
         skills.append(getBadSkill())
   return skills
   
-def generateResumeEmail(name, address,guid):
+def generateResumeEmail(name,address,goodness,guid):
   emailID = str(randint(3,3000))
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/sender", "w+", encoding="utf-8") as f:
         f.write(name)  
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/subject", "w+", encoding="utf-8") as f:
-        f.write("Job Application") 
+        f.write("Job Application")
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/goodness", "w+", encoding="utf-8") as f:
+        f.write(str(goodness))
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/type", "w+", encoding="utf-8") as f:
+        f.write("application")         
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/body", "w+", encoding="utf-8") as f:
         f.write("<object class=\"objectembed\" data=\"/etc/users/"+guid+"/emails/"+emailID+"/attachment.pdf\" width=\"100%\" height=\"100%\" type=\"application/pdf\" style=\"margin: 0\" title=\"\">") 
   texText = ""
@@ -114,13 +119,23 @@ def generateResumeEmail(name, address,guid):
         f.write(texText)
   os.system("cd ../../etc/users/"+guid+"/emails/"+emailID+" && pdflatex attachment.tex")
 
-name = generateName()
-address = generateAddress()
-guid = "12345abcd"
-print(name)
-print(address)
-traitobject = generateTraits()
-print(traitobject[0])
-print("Goodness of person is " + str(traitobject[1]))
-print(generateSkills(traitobject[1]))
-generateResumeEmail(name,address,guid)
+
+if len(sys.argv) == 1:
+    name = generateName()
+    address = generateAddress()
+    guid = "12345abcd"
+    print(name)
+    print(address)
+    traitobject = generateTraits()
+    print(traitobject[0])
+    print("Goodness of person is " + str(traitobject[1]))
+    print(generateSkills(traitobject[1]))
+    generateResumeEmail(name,address,traitobject[1],guid)
+    
+elif len(sys.argv) == 3 and sys.argv[1] == "generateResumeEmail":
+    name = generateName()
+    address = generateAddress()
+    guid = sys.argv[2]
+    traitobject = generateTraits()
+    generateSkills(traitobject[1])
+    generateResumeEmail(name,address,traitobject[1],guid)    
