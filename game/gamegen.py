@@ -32,6 +32,26 @@ def getGoodTrait():
         if i == gtnum:
             return line.strip("\n")
 
+def getGoodSkill():
+  csnum = randint(1,45)
+  tsnum = randint(1,16)
+  if randint(0,1):
+      with open("datasets/comm_skills.txt") as csfile:
+        for i, line in enumerate(csfile):
+            if i == csnum:
+                return line.strip("\n")
+  else:
+      with open("datasets/tech_skills.txt") as tsfile:
+        for i, line in enumerate(tsfile):
+            if i == tsnum:
+                return line.strip("\n")
+
+def getBadSkill():
+  bsnum = randint(1, 13)
+  with open("datasets/bad_skills.txt") as bsfile:
+    for i, line in enumerate(bsfile):
+        if i == bsnum:
+            return line.strip("\n")
 
 def generateName():
   fnamenum = randint(1, 2718)
@@ -56,16 +76,27 @@ def generateTraits():
   goodness = 0
   traitmultiplier = randint(1,10)
   for i in range(1,randint(3,8)):
-    if traitmultiplier * randint(0,10) > 25:
+    if traitmultiplier * randint(0,10) > 32:
         traits.append(getGoodTrait())
         goodness = goodness + 1
     else:
         traits.append(getBadTrait())
         goodness = goodness - 1
   return traits,goodness
+  
+def generateSkills(goodness):
+  skills = []
+  traitmultiplier = 20 + (goodness * 5)
+  for i in range(1,randint(3,8)):
+    if traitmultiplier * randint(1,6) > 12:
+        skills.append(getGoodSkill())
+    else:
+        skills.append(getBadSkill())
+  return skills
 
 print(generateName())
 print(generateAddress())
 traitobject = generateTraits()
 print(traitobject[0])
 print("Goodness of person is " + str(traitobject[1]))
+print(generateSkills(traitobject[1]))
