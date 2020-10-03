@@ -11,6 +11,7 @@ if not
 <style>
 body {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    margin: 0;
     overflow: hidden;
 }
 
@@ -21,7 +22,7 @@ div {
 }
 
 table {
-    height: 100vh;
+    height: calc(100vh - 64px);
     border-collapse: collapse;
 }
 td {
@@ -40,9 +41,22 @@ tr:last-child {
     height: auto;
 }
 
+#header {
+    width: 100%;
+    height: 64px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #2f3a3f;
+}
+#username {
+    color: #fff;
+    font-size: 32px;
+    padding: 7px 16px;
+}
+
 #maintable {
     position: absolute;
-    top: 0;
+    top: 64px;
     right: 0;
     bottom: 0;
     left: 0;
@@ -66,6 +80,10 @@ tr:last-child {
 }
 </style>
 
+<div id="header">
+    <img src="img/header.png" />
+    <span id="username" style="float: right"><span style="font-size: 90%">Hello,</span> <span style="font-weight: 600">%($username%).</span></span>
+</div>
 <table id="maintable"><tr>
 <td class="noborder"><div style="width: 14vw"><table style="width: calc(100% + 1px)">
     <tr><td>
@@ -83,7 +101,6 @@ tr:last-child {
     </td></tr>
     <tr style="height: auto"><td></td></tr>
     <tr style="height: 0"><td style="text-align: center">
-        <span><strong>%($username%)</strong></span><br />
         <img src="img/health-%(`{cat $userdir/health}%).png" style="width: 100%; margin-top: 8px" /><br />
         <label for="health">Mental Health</label><br />
         <progress id="health" value="%(`{cat $userdir/health}%)" max="100"></progress>
