@@ -2,6 +2,7 @@ import json
 import os
 import sys
 from random import randint, randrange
+import uuid
 
 # Backend Game Functions for:
 #
@@ -97,7 +98,7 @@ def generateSkills(goodness):
   return skills
   
 def generateResumeEmail(name,address,goodness,guid):
-  emailID = str(randint(3,3000))
+  emailID = uuid.uuid4().hex
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/sender", "w+", encoding="utf-8") as f:
         f.write(name)  
