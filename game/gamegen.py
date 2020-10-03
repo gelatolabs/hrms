@@ -13,7 +13,7 @@ from random import randint, randrange
 
 def getNoun(l):
   with open("datasets/nouns_"+l+".txt") as nounfile:
-    for i, line in enumerate(nounfile, 2):
+    for i, line in enumerate(nounfile, 1):
       if randrange(i): continue
       noun = line.strip("\n")
     return noun
