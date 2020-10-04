@@ -3,6 +3,7 @@ import os
 import sys
 from random import randint, randrange
 import uuid
+import shutil
 
 # Backend Game Functions for:
 #
@@ -55,6 +56,19 @@ def getBadSkill():
     for i, line in enumerate(bsfile):
         if i == bsnum:
             return line.strip("\n")
+            
+def getWorkReason():
+  wrnum = randint(1,8)
+  with open("datasets/workreasons.txt") as wrfile:
+    for i, line in enumerate(wrfile):
+        if i == wrnum:
+            return line.strip("\n")
+
+def prettyPrintAttributes(attrList):
+  prettyString = ""
+  for attribute in attrList:
+    prettyString = prettyString + " \item " + attribute
+  return prettyString
 
 def generateName():
   fnamenum = randint(1, 2718)
@@ -97,7 +111,7 @@ def generateSkills(goodness):
         skills.append(getBadSkill())
   return skills
   
-def generateResumeEmail(name,address,goodness,guid,emailID):
+def generateResumeEmail(name,address,skills,traits,goodness,guid,emailID):
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/sender", "w+", encoding="utf-8") as f:
         f.write(name) 
@@ -130,11 +144,19 @@ def generateResumeEmail(name,address,goodness,guid,emailID):
         f.write("yes")
 
   texText = ""
-  with open("datasets/tex-templates/basic.tex", "r+", encoding="utf-8") as f:
+  templates = ['basic', 'res5']
+  templateSelect = randint(0,1)
+  with open("datasets/tex-templates/"+templates[templateSelect]+".tex", "r+", encoding="utf-8") as f:
         texText = f.read()
   texText = texText.replace("<<name>>", name)
+  texText = texText.replace("<<about>>", getWorkReason())
   texText = texText.replace("<<address>>", address)
-  
+  texText = texText.replace("<<traits>>", prettyPrintAttributes(traits))
+  texText = texText.replace("<<skills>>", prettyPrintAttributes(skills))
+ 
+  if templateSelect == 1:
+   shutil.copy2('datasets/tex-templates/res.cls', '../../etc/users/'+guid+'/emails/'+emailID)
+   
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/attachment.tex", "w+", encoding="utf-8") as f:
         f.write(texText)
   os.system("cd ../../etc/users/"+guid+"/emails/"+emailID+" && pdflatex -output-directory ../../../../../site/game/pdf/"+guid+" -jobname "+emailID+" attachment.tex")
@@ -158,5 +180,5 @@ elif len(sys.argv) == 4 and sys.argv[1] == "generateResumeEmail":
     guid = sys.argv[2]
     emailID = sys.argv[3]
     traitobject = generateTraits()
-    generateSkills(traitobject[1])
-    generateResumeEmail(name,address,traitobject[1],guid,emailID)
+    skills = generateSkills(traitobject[1])
+    generateResumeEmail(name,address,skills,traitobject[0],traitobject[1],guid,emailID)

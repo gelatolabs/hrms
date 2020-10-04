@@ -1,0 +1,74 @@
+% LaTeX file for resume 
+% This file uses the resume document class (res.cls)
+
+\documentclass{res} 
+%\usepackage{helvetica} % uses helvetica postscript font (download helvetica.sty)
+%\usepackage{newcent}   % uses new century schoolbook postscript font 
+\newsectionwidth{0pt}  % So the text is not indented under section headings
+\setlength{\textheight}{10.2in} % set text height big enough for box
+\topmargin=-.5in       % to start box .5in from top of page
+\oddsidemargin=-.5in   % to start box .5in from left of page
+    
+\begin{document}
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% The following lines define \boxaround, used to draw a box on the page.
+% The parameter is the entire text of the resume. Must fit on one page!
+%
+% \boxaroundhmargin is the left & right margin around the text inside the box.
+% \boxaroundvmargin is the top & bottom margin around the text inside the box.
+% \boxrulethickness controls thickness of line used to draw the box.
+% You can change these 3 things in the lines below:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newdimen\boxrulethickness\newdimen\boxaroundhmargin\newdimen\boxaroundvmargin
+\boxrulethickness=.5pt        %controls thickness of line 
+\boxaroundhmargin=35pt        % about a half inch
+\boxaroundvmargin=40pt        % to fit more text on page, make this smaller
+%%%%%%%%%%%%%%%%%%%%%%%%% Don't read this stuff %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hsize=7.5in% \vsize=10.5in             % use bigger dimensions for box
+\newbox\MACboxA  \newdimen\MACdimenA
+% \borderandboxit is used inside \boxaround:
+\def\borderandboxit#1#2#3{\vbox{\hrule height#2\hbox{\vrule width#2\hskip#1\hskip-#2%
+  \vbox{\vskip#1\relax#3\vskip#1}\hskip#1\hskip-#2\vrule width#2}\hrule height#2}}
+%
+\long\def\boxaround#1{\vskip6pt
+  {\MACdimenA=\hsize \advance\MACdimenA by-\boxaroundhmargin
+   \advance\MACdimenA by-\boxaroundhmargin   % once for each side
+   \setbox\MACboxA=\hbox to \hsize{\hskip\boxaroundhmargin%\hss
+                     \vbox{\hsize=\MACdimenA
+                           \vskip\boxaroundvmargin #1
+                           \vskip\boxaroundvmargin}\hss}%
+   \borderandboxit{0pt}\boxrulethickness{\box\MACboxA}}%
+  \vskip2pt plus0pt minus0pt
+}
+%%%%%%%%%%%%%%%%%%%  End of \boxaround macro %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+\boxaround{ % put the text on the page inside a box  
+
+\name{<<name>>\\[12pt]}
+\address{\bf Present Address\\<<address>>} 
+
+ 
+\begin{resume}
+
+\section{\sl  Objective}  % with postscript font \sl produces bold italic
+%                           with default font (CM) \sl produces slanted type
+<<about>>
+
+\section{\sl  Skills}
+\begin{itemize}
+<<skills>>
+\end{itemize}
+ 
+\section{\sl  Traits}
+\begin{itemize}
+<<traits>>
+\end{itemize}
+
+
+\end{resume}
+
+\vfill} %    end the material being boxed.
+\end{document}
+
+
