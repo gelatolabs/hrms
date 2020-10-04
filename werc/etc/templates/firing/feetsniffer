@@ -1,0 +1,8 @@
+<p>Dear %($username%),</p>
+
+<p>It has come to our attention that %($employee(1)%) has been found sniffing the feet of certain female employees. As much as this creates fantastic cooler talk, some of the victims are threatening to sue us if we don't act. You know what to do.</p>
+
+<p>Thank you for your service @ MegaCorp.</p>
+
+<p>Have a pleasant day,<br />
+Mister E</p>

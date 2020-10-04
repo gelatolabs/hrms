@@ -38,7 +38,7 @@ def getGoodTrait():
 
 def getGoodSkill():
   csnum = randint(0,45)
-  tsnum = randint(0,16)
+  tsnum = randint(0,19)
   if randint(0,1):
       with open("datasets/comm_skills.txt") as csfile:
         for i, line in enumerate(csfile):
@@ -51,7 +51,7 @@ def getGoodSkill():
                 return line.strip("\n")
 
 def getBadSkill():
-  bsnum = randint(0, 13)
+  bsnum = randint(0, 19)
   with open("datasets/bad_skills.txt") as bsfile:
     for i, line in enumerate(bsfile):
         if i == bsnum:
@@ -126,7 +126,8 @@ def generateResumeEmail(name,address,skills,traits,goodness,guid,emailID):
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/body", "w+", encoding="utf-8") as f:
         f.write("<object id=\"resume\" data=\"/pdf/"+guid+"/"+emailID+".pdf\" type=\"application/pdf\"></object>")
 
-  firingreason = "leagueoflegends" # replace me with something relevant to the
+  firingreasonSelect = randint(0,1) 
+  firingreason = ["leagueoflegends","feetsniffer"] # replace me with something relevant to the
                                    # candidate, correspond with a body template
                                    # in etc/templates/firing/
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID+"/firing")
@@ -139,7 +140,7 @@ def generateResumeEmail(name,address,skills,traits,goodness,guid,emailID):
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/name", "w+", encoding="utf-8") as f:
         f.write(name)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/reason", "w+", encoding="utf-8") as f:
-        f.write(firingreason)
+        f.write(firingreason[firingreasonSelect])
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/unread", "w+", encoding="utf-8") as f:
         f.write("yes")
 
