@@ -43,10 +43,13 @@ if(~ $"post_arg_generateEmail yes) {
 }
 if not if(~ $"post_arg_hireSubmit Hire && ! ~ $"post_arg_hire '' && ! test -d $userdir/firing) {
     candidate=`{echo $post_arg_hire | sed 's/[^a-z0-9]//g'}
-    score=`{cat $userdir/score}
-    goodness=`{cat $userdir/emails/$candidate/goodness}
-    echo $score+$goodness | bc > $userdir/score
-    mv $userdir/emails/$candidate/firing $userdir/
+    if(! test -f $userdir/emails/$candidate/hired) {
+        score=`{cat $userdir/score}
+        goodness=`{cat $userdir/emails/$candidate/goodness}
+        echo $score+$goodness | bc > $userdir/score
+        mv $userdir/emails/$candidate/firing $userdir/
+        touch $userdir/emails/$candidate/hired
+    }
 }
 if not if(~ $"post_arg_fireSubmit Fire) {
     rm -rf $userdir/firing
@@ -227,7 +230,7 @@ tr:last-child {
 %           employee=`{cat $userdir/emails/$email/name}
 %       tpl_handler $userdir/emails/$email/body
     </td></tr>
-%   if(~ $type application && ! test -d $userdir/firing && ~ $next event) {
+%   if(~ $type application && ! test -d $userdir/firing && ~ $next event && ! test -f $userdir/emails/$email/hired) {
     <tr><td>
         <form id="actions" method="POST" action="">
             <input type="hidden" name="hire" value="%($email%)">
