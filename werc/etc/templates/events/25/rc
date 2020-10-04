@@ -1,0 +1,6 @@
+touch $userdir/eventpending
+
+if(! ~ $"post_arg_townfallevent '') {
+    rm $userdir/eventpending
+    echo $post_arg_townfallevent > $userdir/townfallevent
+}

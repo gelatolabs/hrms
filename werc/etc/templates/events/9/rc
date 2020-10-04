@@ -1,0 +1,2 @@
+if(! ~ $"post_arg_parkingfine '')
+    touch $userdir/paidparking2

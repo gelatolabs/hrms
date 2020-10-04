@@ -1,6 +1,3 @@
-% if(! ~ $"post_arg_parkingfine '')
-%     touch $userdir/paidparking3
-
 <p>Dear %($username%),</p>
 
 % if(test -f $userdir/paidparking2) {

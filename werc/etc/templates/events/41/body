@@ -1,0 +1,15 @@
+<p>Dear %($username%),</p>
+
+<p>We would like to welcome you to join us in one of our fabulous training sessions, aimed to improve your performance here at MegaCorp. As our productivity has recently seen steep declines, we'd love for you to help us turn things around and register for (only) one of our sessions:</p>
+
+% if(! test -f $userdir/training) {
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="training" value="Close quarters combat" class="hire">
+    <input type="submit" name="training" value="Personal hygiene" class="hire">
+    <input type="submit" name="training" value="Anger management" class="hire">
+    <input type="submit" name="training" value="Goldfish farming" class="hire">
+    <input type="submit" name="training" value="No thanks" class="fire">
+</form>
+% }

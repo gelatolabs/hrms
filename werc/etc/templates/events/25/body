@@ -1,6 +1,14 @@
-<p>Dear %($username%),</p>
+<p>%($username%),</p>
 
-<p>Congratulations,  you have been awarded second place in the promotion to Senior Director of Human Resources.  We would like to thank you for almost securing this position and hope that you will have better luck next time!</p>
+<p>Thank you for registering for the Town fall. We look forward to seeing but not hearing you there! Please take a few seconds and choose which event you would like to participate in (unfortunately due to space limitations you can only select one event):</p>
 
-<p>Sincerely,<br />
-The HR teem</p>
+% if(! test -f $userdir/townfallevent) {
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="townfallevent" value="Bobbing for nails" class="hire">
+    <input type="submit" name="townfallevent" value="Laptop toss" class="hire">
+    <input type="submit" name="townfallevent" value="Trust falls" class="hire">
+    <input type="submit" name="townfallevent" value="Face typing" class="hire">
+</form>
+% }

@@ -5,32 +5,26 @@
 % total=0
 <table style="height: auto; margin-left: 1.5em">
 <tr>
-<td>Hiring Skillz&trade;</td>
+<td><strong>Hiring Skillz&trade;</strong></td>
 % if(test `{cat $userdir/score} -gt 5) {
-% total=`{echo $total+3 | bc}
-<td>Exceeds expectations</td>
+% total=`{echo $total+2 | bc}
+<td><strong>Exceeds expectations</strong></td>
 % }
 % if not if(test `{cat $userdir/score} -ge 0) {
-<td>Meets expectations</td>
+<td><strong>Meets expectations</strong></td>
 % }
 % if not {
-% total=`{echo $total-3 | bc}
-<td>Does not meet expectations</td>
+% total=`{echo $total-2 | bc}
+<td><strong>Does not meet expectations</strong></td>
 % }
 </tr><tr>
-<td>Punkchewality</td>
-% total=`{echo $total+1 | bc}
-<td>Exceeds expectations</td>
-</tr><tr>
-<td>Speed</td>
-<td>ERR: Gelato TimeTrack&reg; license expired</td>
-</tr><tr>
-<td>Parking</td>
-% if(test -f $userdir/paidparking) {
+
+<td>Mouse Clicking</td>
+% if(test `{get_cookie clicks} -gt 40) {
 % total=`{echo $total+1 | bc}
 <td>Exceeds expectations</td>
 % }
-% if not if(test -f $userdir/paidparking) {
+% if not if(test `{get_cookie clicks} -gt 20) {
 <td>Meets expectations</td>
 % }
 % if not {
@@ -38,25 +32,92 @@
 <td>Does not meet expectations</td>
 % }
 </tr><tr>
-<td>Posture</td>
-% if(test `{get_cookie clicks} -gt 50) {
-% total=`{echo $total+1 | bc}
-<td>Exceeds expectations</td>
-% }
-% if not if(test `{get_cookie clicks} -gt 25) {
-<td>Meets expectations</td>
-% }
-% if not {
-% total=`{echo $total-1 | bc}
-<td>Does not meet expectations</td>
-% }
+
+%{
+switch($email) {
+case 16
+    echo '<td>Parking</td>'
+    if(test -f $userdir/paidparking) {
+        total=`{echo $total+1 | bc}
+        echo '<td>Exceeds expectations</td>'
+    }
+    if not if(test -f $userdir/paidparking) {
+        echo '<td>Meets expectations</td>'
+    }
+    if not {
+        total=`{echo $total-1 | bc}
+        echo '<td>Does not meet expectations</td>'
+    }
+case 32
+    echo '<td>Enthusiasm</td>'
+    if(~ `{cat $userdir/townfall} yes) {
+        echo '<td>Does not meet expectations</td>'
+        total=`{echo $total-1 | bc}
+    }
+    if not {
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    }
+    echo '</tr><tr>'
+    switch(`{cat $userdir/townfallevent}) {
+    case 'Bobbing for nails'
+        echo '<td>Nail-bobbing</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    case 'Laptop toss'
+        echo '<td>Posture</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    case 'Trust falls'
+        echo '<td>Trust</td>'
+        echo '<td>Does not meet expectations</td>'
+        total=`{echo $total-1 | bc}
+    case 'Face typing'
+        echo '<td>Tpyign</td>'
+        echo '<td>Meets expctatoins</td>'
+    }
+case 48
+    echo '<td>Common Sense</td>'
+    if(test -f $userdir/udderfailure) {
+        echo '<td>Does not meet expectations</td>'
+        total=`{echo $total-1 | bc}
+    }
+    if not {
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    }
+    echo '</tr><tr>'
+    switch(`{cat $userdir/training}) {
+    case 'Close quarters combat'
+        echo '<td>CQC</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    case 'Personal hygiene'
+        echo '<td>Hygiene</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    case 'Anger management'
+        echo '<td>Asshurtiveness</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    case 'Goldfish farming'
+        echo '<td>Accounting</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    case 'No thanks'
+        echo '<td>Trainedness</td>'
+        echo '<td>Does not meet expectations</td>'
+        total=`{echo $total-1 | bc}
+    }
+}
+%}
 </tr>
 </table>
 
-% if(test $total -gt 3) {
-<p>You are the elite of the elite of the elite. All megacorpsers should strive to attain your samurai level of perfection. Keep up the good work but remember, we will be watching.</p>
+% if(test $total -ge 3) {
+<p>You are the elite of the elite of the elite. All MegaCorpsers should strive to attain your samurai level of perfection. Keep up the good work but remember, we will be watching.</p>
 % }
-% if not if(test $total -gt 0) {
+% if not if(test $total -ge 0) {
 <p>Well let's face it, you're not the cream of the crop but you're not quite at the bottom of the bucket. If you keep your chin up and dig really deep you might just be somebody someday.</p>
 % }
 % if not {
@@ -65,3 +126,5 @@
 
 <p>Sincerely,<br />
 Miss Ta Ree</p>
+
+<script>document.cookie = "clicks=0; expires=Fri, 31 Dec 9999 23:59:59 GMT";</script>

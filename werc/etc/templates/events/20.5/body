@@ -1,0 +1,8 @@
+<p>Dear %($username%),</p>
+
+% if(test -f $userdir/paidparking3) {
+<p>Thank you for your payment. We appreciate your financial contributions to the health and well being of Binky and wish him a speedy recovery.</p>
+% }
+% if not {
+<p>Binky is dead. Your failure to comply has resulted in the loss of one of the most respected members of the MegaCorp community. We have no choice but to schedule you for immediate termination. Your account will be blocked, starting in 0 seconds.</p>
+% }

@@ -1,39 +1,24 @@
-%{
-if(test -f $userdir/emails/$email/unread) {
-    health=`{cat $userdir/health}
-    echo $health-20 | bc > $userdir/health
-}
-%}
+<p>Greetings fellow MegaCorpsers,</p>
 
-<style>
-#black {
-    background-color: #000;
-    z-index: 99;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: none;
-}
-</style>
+<p>Great news, we are pleased to announce we will be hosting a community gathering next week. The event will offer an excellent opportunity for us to gather together and collectively communicate through our email clients. Please do not forget to bring your device, as with standard policy no vocal forms of communication will be permitted. Be sure to engage in one of these exciting events:</p>
 
-<p>Yo homie,</p>
+<ul>
+<li>Bobbing for nails - least blood wins!</li>
+<li>Laptop toss - longest distance wins!</li>
+<li>Trust falls - fewest concussions wins!</li>
+<li>Face typing competition - no hands/feet, highest WPM wins!</li>
+</ul>
 
-<p>Dis be Jonny Goldenhand from cyberfunk power & utilities. We've been experiencing some payment issues with your organization. Please resolve this as soon as possible, and as a friendly reminder we will be temporarily turning off your power in 5 seconds.</p>
+<p>Looking forward to seeing you all there!</p>
 
-<p>Have a pleasant day,</p>
+<p>Sincerely,<br />
+Miss Ta Ree</p>
 
-<p>JONGO</p>
-
-<div id="black"></div>
-
-<script>
-async function poweroutage() {
-    await new Promise(r => setTimeout(r, 5000));
-    document.getElementById("black").style.display = "block";
-    await new Promise(r => setTimeout(r, 5000));
-    document.getElementById("black").style.display = "none";
-}
-poweroutage();
-</script>
+% if(! test -f $userdir/townfall) {
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="townfall" value="yes" class="hire">
+    <input type="submit" name="townfall" value="YES!" class="hire">
+</form>
+% }

@@ -1,0 +1,12 @@
+<p>%($username%),</p>
+
+% switch(`{cat $userdir/training}) {
+% case 'Close quarters combat'
+<p>Thank you for your participation in CQC.  We really shed some blood out there.  The competition was tough but after our wounds heal, we'll be right back in the game - stronger than ever.  Way to let out that aggression team!</p>
+% case 'Personal hygiene'
+<p>It's not always comfortable shedding your clothing infront of others, but kudos to you for being brave enough to step up and expose yourself.  Even though it was slightly traumatizing, this exercise was to reconnect us with our natural lifestyle roots and scrub away our insecurities.</p>
+% case 'Anger management'
+<p>We all knew you had issues.  This was a great opportunity for you to face them head on.  Expressing anger in non-verbal communication isn't always easy, some of us really struggled to keep in line with the company code of silence.  Somehow we made it and we're all bigger because of it, now sit down and shut up.</p>
+% case 'Goldfish farming'
+<p>As many of you are gamers you may have come across the lovely pastime of goldfish farming.  While often seen as unethical in the eyes of some, we believe it to be a relaxing activity that greatly contributes to the stability of game currencies worldwide.  We would like to sincerely thank you for taking the time to participate and remember, all goldfish will be released to the wild to stimulate in-game currency growth.</p>
+% }

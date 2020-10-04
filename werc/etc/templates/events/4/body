@@ -1,6 +1,3 @@
-% if(! ~ $"post_arg_parkingfine '')
-%     touch $userdir/paidparking
-
 <p>Greetings,</p>
 
 <p>It has come to our attention that your vehicle is illegally parked in a space reserved for clowns. Binky was so upset that he was forced to go home due to mental health concerns. As a result of the infraction, you have been issued a $500 fine and are responsible for all of Binky's medical bills. Remember the parking slogan - a space is just a place.</p>
