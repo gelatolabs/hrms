@@ -41,6 +41,9 @@ if not if(~ $"post_arg_fireSubmit Fire) {
     rm -rf $userdir/firing
 }
 
+if(test -f $userdir/emails/$email/rc)
+    . $userdir/emails/$email/rc
+
 if(~ $next applications && ! test -d $userdir/firing) {
     cd $sitedir
     python3 gamegen.py generateResumeEmail $userid $emailcount >/dev/null
@@ -50,12 +53,14 @@ if(~ $next applications && ! test -d $userdir/firing) {
 }
 if not if(~ $next event && test -d $userdir/firing) {
     cp -r etc/templates/events/$emailcount $userdir/emails/
-    if(~ $emailcount 25 && ! test -f $userdir/paidparking)
-        cp -r etc/templates/events/25.5 $userdir/emails/
-    if not if(~ $emailcount 30 && ! test -f $userdir/paidparking && ! test -f $userdir/paidparking2)
-        cp -r etc/templates/events/30.5 $userdir/emails/
+    if(~ $emailcount 14 && ! test -f $userdir/paidparking)
+        cp -r etc/templates/events/14.5 $userdir/emails/
+    if not if(~ $emailcount 20 && ! test -f $userdir/paidparking && ! test -f $userdir/paidparking2)
+        cp -r etc/templates/events/20.5 $userdir/emails/
+    if not if(~ $emailcount 46)
+        cp -r etc/templates/events/46.5 $userdir/emails/
 }
-if not if(~ $next firing) {
+if not if(~ $next firing && ! test -f $userdir/eventpending && ~ $type mainevent) {
     reason=`{cat $userdir/firing/reason}
     cp -r $userdir/firing $userdir/emails/$emailcount
     cp etc/templates/firing/$reason $userdir/emails/$emailcount/body

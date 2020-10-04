@@ -1,0 +1,37 @@
+<style>
+#cows {
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+}
+</style>
+
+<p>Attention all employees, we will be conducting a mandatory security sweep as there has recently been a 10,000% increase in cases of the COW-VID69 virus. You are only supposed to click on links that have been sent from authorized email addresses. Please click the link below to begin a security check of your system.</p>
+
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="virus" value="Click me!" class="hire">
+</form>
+
+<img id="cows" src="/img/cows.png" />
+
+% if(! ~ $"post_arg_virus '') {
+%     touch $userdir/udderfailure
+%     health=`{cat $userdir/health}
+%     echo $health-20 | bc > $userdir/health
+
+<script>
+async function cows() {
+    document.getElementById("cows").style.display = "block";
+    await new Promise(r => setTimeout(r, 5000));
+    document.getElementById("cows").style.display = "none";
+}
+cows();
+</script>
+
+% }

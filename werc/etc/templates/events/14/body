@@ -1,19 +1,32 @@
-% if(! ~ $"post_arg_parkingfine '')
-%     touch $userdir/paidparking2
+<style>
+#black {
+    background-color: #000;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+}
+</style>
 
-<p>Dear %($username%),</p>
+<p>Yo homie,</p>
 
-% if(test -f $userdir/paidparking) {
-<p>Thank you for your payment. We appreciate your financial contributions to the health and well being of Binky and wish him a speedy recovery.</p>
-% }
-% if not {
-<p>Your lack of response to this issue is highly concerning. As you have neglected to comply, the fine has now been doubled to $1000. Should you continue to disobey the penalty will increase in severity.</p>
-% }
+<p>Dis be Jonny Goldenhand from cyberfunk power & utilities. We've been experiencing some payment issues with your organization. Please resolve this as soon as possible, and as a friendly reminder we will be temporarily turning off your power in 5 seconds.</p>
 
-% if(! test -f $userdir/paidparking && ! test -f $userdir/paidparking2) {
-</td></tr>
-<tr><td>
-<form id="actions" method="POST" action="">
-    <input type="submit" name="parkingfine" value="Pay fine" class="hire">
-</form>
-% }
+<p>Have a pleasant day,</p>
+
+<p>JONGO</p>
+
+<div id="black"></div>
+
+<script>
+async function poweroutage() {
+    await new Promise(r => setTimeout(r, 5000));
+    document.getElementById("black").style.display = "block";
+    await new Promise(r => setTimeout(r, 5000));
+    document.getElementById("black").style.display = "none";
+}
+poweroutage();
+</script>

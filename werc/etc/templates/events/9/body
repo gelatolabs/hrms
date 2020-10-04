@@ -1,15 +1,16 @@
-<p>Greetings fellow MegaCorpsers,</p>
+<p>Dear %($username%),</p>
 
-<p>Great news, we are pleased to announce we will be hosting a community gathering next week. The event will offer an excellent opportunity for us to gather together and collectively communicate through our email clients. Please do not forget to bring your device, as with standard policy no vocal forms of communication will be permitted. Be sure to engage in one of these exciting events:</p>
+% if(test -f $userdir/paidparking) {
+<p>Thank you for your payment. We appreciate your financial contributions to the health and well being of Binky and wish him a speedy recovery.</p>
+% }
+% if not {
+<p>Your lack of response to this issue is highly concerning. As you have neglected to comply, the fine has now been doubled to $1000. Should you continue to disobey the penalty will increase in severity.</p>
+% }
 
-<ul>
-<li>Bobbing for nails - least blood wins!</li>
-<li>Laptop toss - longest distance wins!</li>
-<li>Trust falls - fewest concussions wins!</li>
-<li>Face typing competition - no hands/feet, highest WPM wins!</li>
-</ul>
-
-<p>Looking forward to seeing you all there!</p>
-
-<p>Sincerely,<br />
-Miss Ta Ree</p>
+% if(! test -f $userdir/paidparking && ! test -f $userdir/paidparking2) {
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="parkingfine" value="Pay fine" class="hire">
+</form>
+% }
