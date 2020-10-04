@@ -97,8 +97,7 @@ def generateSkills(goodness):
         skills.append(getBadSkill())
   return skills
   
-def generateResumeEmail(name,address,goodness,guid):
-  emailID = uuid.uuid4().hex
+def generateResumeEmail(name,address,goodness,guid,emailID):
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/sender", "w+", encoding="utf-8") as f:
         f.write(name) 
@@ -111,7 +110,25 @@ def generateResumeEmail(name,address,goodness,guid):
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/unread", "w+", encoding="utf-8") as f:
         f.write("yes")
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/body", "w+", encoding="utf-8") as f:
-        f.write("<object class=\"objectembed\" data=\"/pdf/"+guid+"/"+emailID+".pdf\" width=\"100%\" height=\"100%\" type=\"application/pdf\" style=\"margin: 0\" title=\"\">")
+        f.write("<object id=\"resume\" data=\"/pdf/"+guid+"/"+emailID+".pdf\" type=\"application/pdf\"></object>")
+
+  firingreason = "leagueoflegends" # replace me with something relevant to the
+                                   # candidate, correspond with a body template
+                                   # in etc/templates/firing/
+  os.mkdir("../../etc/users/"+guid+"/emails/"+emailID+"/firing")
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/sender", "w+", encoding="utf-8") as f:
+        f.write("Mister E")
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/subject", "w+", encoding="utf-8") as f:
+        f.write("Re: "+name)
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/type", "w+", encoding="utf-8") as f:
+        f.write("firing")
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/name", "w+", encoding="utf-8") as f:
+        f.write(name)
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/reason", "w+", encoding="utf-8") as f:
+        f.write(firingreason)
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/unread", "w+", encoding="utf-8") as f:
+        f.write("yes")
+
   texText = ""
   with open("datasets/tex-templates/basic.tex", "r+", encoding="utf-8") as f:
         texText = f.read()
@@ -135,10 +152,11 @@ if len(sys.argv) == 1:
     print(generateSkills(traitobject[1]))
     generateResumeEmail(name,address,traitobject[1],guid)
     
-elif len(sys.argv) == 3 and sys.argv[1] == "generateResumeEmail":
+elif len(sys.argv) == 4 and sys.argv[1] == "generateResumeEmail":
     name = generateName()
     address = generateAddress()
     guid = sys.argv[2]
+    emailID = sys.argv[3]
     traitobject = generateTraits()
     generateSkills(traitobject[1])
-    generateResumeEmail(name,address,traitobject[1],guid)    
+    generateResumeEmail(name,address,traitobject[1],guid,emailID)

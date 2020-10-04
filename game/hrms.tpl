@@ -6,24 +6,56 @@ userdir=etc/users/$userid
 if(! ~ $"post_arg_email '')
     email=`{echo $post_arg_email | sed 's/[^a-z0-9]//g'}
 if not
-    email=`{ls -trp $userdir/emails | tail -n 1}
+    email=`{ls -p $userdir/emails | sort -n | tail -n 1}
+
+emailcount=`{ls $userdir/emails | wc -l}
+switch(`{echo $emailcount'-('$emailcount'/16*16)' | bc}) {
+case 1 2 3 6 7 8 11 12 13
+    next=applications
+case 4 9 14
+    next=event
+case 5 10 15
+    next=firing
+case 0
+    next=review
+}
 
 if(~ $"post_arg_generateEmail yes) {
-    switch(`{shuf -n1 -i 1-2}) {
-    case 1
+    if(~ $next applications && ! test -d $userdir/firing) {
         cd $sitedir
-        python3 gamegen.py generateResumeEmail $userid >/dev/null
+        python3 gamegen.py generateResumeEmail $userid $emailcount >/dev/null
+        python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+1 | bc} >/dev/null
+        python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+2 | bc} >/dev/null
         cd ../..
-    case 2
-        event=`{ls -p etc/templates/events | shuf -n1}
-        cp -r etc/templates/events/$event $userdir/emails/`{uuidgen | sed 's/-//g'}
     }
+    if not if(~ $next event && test -d $userdir/firing) {
+        event=`{ls -p etc/templates/events | shuf -n1}
+        cp -r etc/templates/events/$event $userdir/emails/$emailcount
+    }
+    if not if(~ $next firing) {
+        reason=`{cat $userdir/firing/reason}
+        cp -r $userdir/firing $userdir/emails/$emailcount
+        cp etc/templates/firing/$reason $userdir/emails/$emailcount/body
+    }
+    if not if(~ $next review && test -d $userdir/firing) {
+        cp -r etc/templates/review $userdir/emails/$emailcount
+    }
+}
+if not if(~ $"post_arg_hireSubmit Hire && ! ~ $"post_arg_hire '' && ! test -d $userdir/firing) {
+    candidate=`{echo $post_arg_hire | sed 's/[^a-z0-9]//g'}
+    score=`{cat $userdir/score}
+    goodness=`{cat $userdir/emails/$candidate/goodness}
+    echo $score+$goodness | bc > $userdir/score
+    mv $userdir/emails/$candidate/firing $userdir/
+}
+if not if(~ $"post_arg_fireSubmit Fire) {
+    rm -rf $userdir/firing
 }
 %}
 
 <style>
 body {
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     margin: 0;
     overflow: hidden;
 }
@@ -97,6 +129,12 @@ tr:last-child {
     box-shadow: 3px 0px 0px #9ddfff inset;
 }
 
+#resume {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+}
+
 #actions {
     text-align: center;
 }
@@ -105,7 +143,7 @@ tr:last-child {
     border: none;
     border-radius: 6px;
     padding: 16px 24px;
-    margin: 0.5em 0.2em 1em;
+    margin: 0.5em 0.2em;
     font-size: 175%;
 }
 #actions input:hover {
@@ -116,7 +154,7 @@ tr:last-child {
     background-color: #4caf50;
     border: 3px solid #419544;
 }
-#actions input.reject {
+#actions input.fire {
     background-color: #f44336;
     border: 3px solid #cf392e;
 }
@@ -139,10 +177,13 @@ tr:last-child {
 </div>
 <table id="maintable"><tr>
 <td class="noborder"><div style="width: 14vw"><table style="width: calc(100% + 1px)">
+    <tr style="background-color: #fffc9d; cursor: pointer" onclick="generateEmail()"><td>
+        <span><strong>☞ GET MAAAIL!! ☜</strong></span>
+    </td></tr>
     <tr><td>
         <span>Inbox</span>
     </td></tr>
-    <tr class="active" onclick="generateEmail()"><td>
+    <tr class="active"><td>
         <span><strong>Spam</strong></span>
 %       unread=`{ls $userdir/emails/*/unread | wc -l}
 %       if(! ~ $unread 0) {
@@ -163,7 +204,7 @@ tr:last-child {
     </td></tr>
 </table></div></td>
 <td class="noborder"><div style="width: 25vw"><table style="width: calc(100% + 1px)">
-%   for(i in `{ls -tp $userdir/emails}) {
+%   for(i in `{ls -p $userdir/emails | sort -nr}) {
     <tr class="emailBtn %(`{if(~ $email $i) echo 'active'}%)" onclick="openEmail('%($i%)')"><td>
         <span>%(`{if(test -f $userdir/emails/$i/unread) echo '<strong>'}%)%(`{cat $userdir/emails/$i/subject}%)%(`{if(test -f $userdir/emails/$i/unread) echo '</strong>'}%)</span><br />
         <span>%(`{cat $userdir/emails/$i/sender}%)</span>
@@ -173,22 +214,36 @@ tr:last-child {
     <tr><td></td></tr>
 </table></div></td>
 <td class="noborder"><div style="width: 61vw"><table style="width: calc(100% + 1px)">
-    <tr style="background-color: #f4f4f4"><td>
+    <tr style="background-color: #f4f4f4; height: 0"><td>
         <table style="height: auto" id="emaildetails">
           <tr><td style="text-align: right">From:</td><td>%(`{cat $userdir/emails/$email/sender}%)</td></tr>
           <tr><td style="text-align: right">Date:</td><td>%(`{/bin/date -r $userdir/emails/$email/body}%)</td></tr>
           <tr><td style="text-align: right">Subject:</td><td><strong>%(`{cat $userdir/emails/$email/subject}%)</strong></td></td>
         </table>
     </td></tr>
-    <tr><td id="emailbody">
-        %(`{tpl_handler $userdir/emails/$email/body}%)
-%       switch(`{cat $userdir/emails/$email/type}) {
-%       case application
+    <tr style="height: auto"><td id="emailbody">
+%       type=`{cat $userdir/emails/$email/type}
+%       if(~ $"type firing)
+%           employee=`{cat $userdir/emails/$email/name}
+%       tpl_handler $userdir/emails/$email/body
+    </td></tr>
+%   if(~ $type application && ! test -d $userdir/firing && ~ $next event) {
+    <tr><td>
         <form id="actions" method="POST" action="">
-            <input name="action" type="submit" value="Hire" class="hire">
-            <input name="action" type="submit" value="Reject" class="reject">
+            <input type="hidden" name="hire" value="%($email%)">
+            <input type="submit" name="hireSubmit" value="Hire" class="hire">
         </form>
-%       }
+    </td></tr>
+%   }
+%   if not if(~ $type firing && test -d $userdir/firing) {
+    <tr><td>
+        <form id="actions" method="POST" action="">
+            <input type="submit" name="fireSubmit" value="Fire" class="fire">
+        </form>
+    </td></tr>
+%   }
+    <tr style="height: 60px; text-align: center"><td id="ad">
+        <a href="https://gelatolabs.xyz/" target="_blank"><img src="/img/banner%(`{shuf -n1 -i 1-3}%).png" /></a>
     </td></tr>
 </table></div></td>
 </tr></table>
