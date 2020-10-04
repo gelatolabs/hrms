@@ -1,0 +1,8 @@
+<p>Dear %($username%),</p>
+
+<p>%($employee(1)%)'s decision to dedicate an entire 72 hours of company time towards a game development competition may have seemed like a great idea in theory, but in practise it just got them fired.  Goodbye!</p>
+
+<p>Thank you for your service @ MegaCorp.</p>
+
+<p>Have a pleasant day,<br />
+Mister E</p>

@@ -103,15 +103,31 @@ def generateTraits():
   
 def generateSkills(goodness):
   skills = []
+  firingreason = ""
   traitmultiplier = 20 + (goodness * 5)
   for i in range(1,randint(3,8)):
     if traitmultiplier * randint(1,6) > 12:
         skills.append(getGoodSkill())
     else:
         skills.append(getBadSkill())
-  return skills
+        # prepare to vomit, it's time to look like we're YandereDev up in here
+        if "bombs" in skills[len(skills)-1]:
+            firingreason = "bombs"
+        elif "Assaulting" in skills[len(skills)-1]:
+            firingreason = "assaultmen"
+        elif "pets" in skills[len(skills)-1]:
+            firingreason = "touchpets"
+        elif "Assassinating" in skills[len(skills)-1]:
+            firingreason = "assassin"  
+        elif "Mime" in skills[len(skills)-1]:
+            firingreason = "mime"
+        elif "stupid games" in skills[len(skills)-1]:
+            firingreason = "stupidgame"
+        elif "VR dating" in skills[len(skills)-1]:
+            firingreason = "vrlfp"            
+  return skills,firingreason
   
-def generateResumeEmail(name,address,skills,traits,goodness,guid,emailID):
+def generateResumeEmail(name,address,skills,firingreason,traits,goodness,guid,emailID):
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/sender", "w+", encoding="utf-8") as f:
         f.write(name) 
@@ -126,10 +142,6 @@ def generateResumeEmail(name,address,skills,traits,goodness,guid,emailID):
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/body", "w+", encoding="utf-8") as f:
         f.write("<object id=\"resume\" data=\"/pdf/"+guid+"/"+emailID+".pdf\" type=\"application/pdf\"></object>")
 
-  firingreasonSelect = randint(0,1) 
-  firingreason = ["leagueoflegends","feetsniffer"] # replace me with something relevant to the
-                                   # candidate, correspond with a body template
-                                   # in etc/templates/firing/
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID+"/firing")
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/sender", "w+", encoding="utf-8") as f:
         f.write("Mister E")
@@ -140,7 +152,7 @@ def generateResumeEmail(name,address,skills,traits,goodness,guid,emailID):
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/name", "w+", encoding="utf-8") as f:
         f.write(name)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/reason", "w+", encoding="utf-8") as f:
-        f.write(firingreason[firingreasonSelect])
+        f.write(firingreason)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/unread", "w+", encoding="utf-8") as f:
         f.write("yes")
 
@@ -182,4 +194,4 @@ elif len(sys.argv) == 4 and sys.argv[1] == "generateResumeEmail":
     emailID = sys.argv[3]
     traitobject = generateTraits()
     skills = generateSkills(traitobject[1])
-    generateResumeEmail(name,address,skills,traitobject[0],traitobject[1],guid,emailID)
+    generateResumeEmail(name,address,skills[0],skills[1],traitobject[0],traitobject[1],guid,emailID)

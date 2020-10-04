@@ -1,0 +1,8 @@
+<p>Dear %($username%),</p>
+
+<p>Passion is something we care about deeply here at MegaCorp.  That is precisely one of the reasons we saw such potential in %($employee(1)%).  Unfortunately passion is something that can often lead to obsession and make a turn for the worse.  %($employee(1)%)'s infatuation with the leader of the Centerist party and in-depth powerpoint presentation involving how they planned to relieve them from their duties was more than disturbing.  As such, we cannot permit them to carry out their duties on MegaCorp time again.  Thank them for their services.</p>
+
+<p>Thank you for your service @ MegaCorp.</p>
+
+<p>Have a pleasant day,<br />
+Mister E</p>
