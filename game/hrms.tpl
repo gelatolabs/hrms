@@ -166,6 +166,20 @@ function generateEmail() {
     document.body.appendChild(form);
     form.submit();
 }
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+
+function moarclicks() {
+    if(getCookie("clicks") == null)
+        document.cookie = "clicks=1; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+    else
+        document.cookie = "clicks=" + (parseInt(getCookie("clicks")) + 1) + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+}
+document.body.addEventListener("click", moarclicks, true);
 </script>
 
 % rm $userdir/emails/$email/unread
