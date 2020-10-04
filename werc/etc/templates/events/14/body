@@ -1,0 +1,19 @@
+% if(! ~ $"post_arg_parkingfine '')
+%     touch $userdir/paidparking2
+
+<p>Dear %($username%),</p>
+
+% if(test -f $userdir/paidparking) {
+<p>Thank you for your payment. We appreciate your financial contributions to the health and well being of Binky and wish him a speedy recovery.</p>
+% }
+% if not {
+<p>Your lack of response to this issue is highly concerning. As you have neglected to comply, the fine has now been doubled to $1000. Should you continue to disobey the penalty will increase in severity.</p>
+% }
+
+% if(! test -f $userdir/paidparking && ! test -f $userdir/paidparking2) {
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="parkingfine" value="Pay fine" class="hire">
+</form>
+% }

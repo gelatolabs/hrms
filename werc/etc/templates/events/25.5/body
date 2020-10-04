@@ -1,0 +1,19 @@
+% if(! ~ $"post_arg_parkingfine '')
+%     touch $userdir/paidparking3
+
+<p>Dear %($username%),</p>
+
+% if(test -f $userdir/paidparking2) {
+<p>Thank you for your payment. We appreciate your financial contributions to the health and well being of Binky and wish him a speedy recovery.</p>
+% }
+% if not {
+<p>This is your second and final warning. Your continued negligence has now been reported to senior management where a formal review of your conduct will be undertaken. If you refuse to pay the current fee - now $2000 - posthaste you will be terminated.</p>
+% }
+
+% if(! test -f $userdir/paidparking2 && ! test -f $userdir/paidparking3) {
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="parkingfine" value="Pay fine" class="hire">
+</form>
+% }
