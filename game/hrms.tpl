@@ -4,7 +4,7 @@ userid=`{get_cookie id | sed 's/[^a-z0-9]//g'}
 userdir=etc/users/$userid
 
 if(! ~ $"post_arg_email '') {
-    email=`{echo $post_arg_email | sed 's/[^a-z0-9]//g'}
+    email=`{echo $post_arg_email | sed 's/[^a-z0-9.]//g'}
     echo $email > $userdir/lastopen
 }
 if not if(test -f $userdir/lastopen)
@@ -15,7 +15,7 @@ if(test -f $userdir/emails/$email/type)
     type=`{cat $userdir/emails/$email/type}
 rm $userdir/emails/$email/unread
 
-emailcount=`{ls $userdir/emails | wc -l}
+emailcount=`{ls $userdir/emails | grep -v '\.' | wc -l}
 switch(`{echo $emailcount'-('$emailcount'/16*16)' | bc}) {
 case 1 2 3 6 7 8 11 12 13
     next=applications
@@ -41,30 +41,28 @@ if not if(~ $"post_arg_fireSubmit Fire) {
     rm -rf $userdir/firing
 }
 
-#if(~ $"post_arg_generateEmail yes) {
-    if(~ $next applications && ! test -d $userdir/firing) {
-        cd $sitedir
-        python3 gamegen.py generateResumeEmail $userid $emailcount >/dev/null
-        python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+1 | bc} >/dev/null
-        python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+2 | bc} >/dev/null
-        cd ../..
-    }
-    if not if(~ $next event && test -d $userdir/firing) {
-        cp -r etc/templates/events/$emailcount $userdir/emails/
-        if(~ $emailcount 25 && ! test -f $userdir/paidparking)
-            cp -r etc/templates/events/25.5 $userdir/emails/
-        if not if(~ $emailcount 30 && ! test -f $userdir/paidparking && ! test -f $userdir/paidparking2)
-            cp -r etc/templates/events/30.5 $userdir/emails/
-    }
-    if not if(~ $next firing) {
-        reason=`{cat $userdir/firing/reason}
-        cp -r $userdir/firing $userdir/emails/$emailcount
-        cp etc/templates/firing/$reason $userdir/emails/$emailcount/body
-    }
-    if not if(~ $next review && test -d $userdir/firing) {
-        cp -r etc/templates/review $userdir/emails/$emailcount
-    }
-#}
+if(~ $next applications && ! test -d $userdir/firing) {
+    cd $sitedir
+    python3 gamegen.py generateResumeEmail $userid $emailcount >/dev/null
+    python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+1 | bc} >/dev/null
+    python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+2 | bc} >/dev/null
+    cd ../..
+}
+if not if(~ $next event && test -d $userdir/firing) {
+    cp -r etc/templates/events/$emailcount $userdir/emails/
+    if(~ $emailcount 25 && ! test -f $userdir/paidparking)
+        cp -r etc/templates/events/25.5 $userdir/emails/
+    if not if(~ $emailcount 30 && ! test -f $userdir/paidparking && ! test -f $userdir/paidparking2)
+        cp -r etc/templates/events/30.5 $userdir/emails/
+}
+if not if(~ $next firing) {
+    reason=`{cat $userdir/firing/reason}
+    cp -r $userdir/firing $userdir/emails/$emailcount
+    cp etc/templates/firing/$reason $userdir/emails/$emailcount/body
+}
+if not if(~ $next review && ! test -d $userdir/firing) {
+    cp -r etc/templates/review $userdir/emails/$emailcount
+}
 
 greeting=`{shuf -n1 -e 'Hello' 'Hey' 'Howdy' 'Hi' 'Greetings' 'MAAAIL!!' 'Rise and shine' 'Yo' 'Moin moin' 'Welcome' 'ERR: LICENSE EXPIRED' 'Please get back to work' 'Productivity is the key to success' 'Don''t forget to synergize' 'Don''t forget to keep an eye on your mental health' 'Try not to get fired' 'Don''t forget to hire people' 'Don''t click shady links' 'Email is good for you' 'A productive employee is a happy employee' 'When in doubt: email' 'MAILMAILMAILMAILMAILMAILMAIL'}
 %}

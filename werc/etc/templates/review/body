@@ -1,0 +1,67 @@
+<p>Dear %($username%),</p>
+
+<p>Please find your latest performance review below:</p>
+
+% total=0
+<table style="height: auto; margin-left: 1.5em">
+<tr>
+<td>Hiring Skillz&trade;</td>
+% if(test `{cat $userdir/score} -gt 5) {
+% total=`{echo $total+3 | bc}
+<td>Exceeds expectations</td>
+% }
+% if not if(test `{cat $userdir/score} -ge 0) {
+<td>Meets expectations</td>
+% }
+% if not {
+% total=`{echo $total-3 | bc}
+<td>Does not meet expectations</td>
+% }
+</tr><tr>
+<td>Punkchewality</td>
+% total=`{echo $total+1 | bc}
+<td>Exceeds expectations</td>
+</tr><tr>
+<td>Speed</td>
+<td>ERR: Gelato TimeTrack&reg; license expired</td>
+</tr><tr>
+<td>Parking</td>
+% if(test -f $userdir/paidparking) {
+% total=`{echo $total+1 | bc}
+<td>Exceeds expectations</td>
+% }
+% if not if(test -f $userdir/paidparking) {
+<td>Meets expectations</td>
+% }
+% if not {
+% total=`{echo $total-1 | bc}
+<td>Does not meet expectations</td>
+% }
+</tr><tr>
+<td>Posture</td>
+% if(test `{get_cookie clicks} -gt 50) {
+% total=`{echo $total+1 | bc}
+<td>Exceeds expectations</td>
+% }
+% if not if(test `{get_cookie clicks} -gt 25) {
+<td>Meets expectations</td>
+% }
+% if not {
+% total=`{echo $total-1 | bc}
+<td>Does not meet expectations</td>
+% }
+</tr>
+</table>
+
+% if(test $total -gt 3) {
+<p>You are the elite of the elite of the elite. All megacorpsers should strive to attain your samurai level of perfection. Keep up the good work but remember, we will be watching.</p>
+% }
+% if not if(test $total -gt 0) {
+<p>Well let's face it, you're not the cream of the crop but you're not quite at the bottom of the bucket. If you keep your chin up and dig really deep you might just be somebody someday.</p>
+% }
+% if not {
+<p>Have you considered thinking at some point? This is simply unacceptable. Dramatic improvement is required ASAP or you will be scheduled for immediate termination.</p>
+% }
+
+<p>Sincerely,<br />
+Miss Ta Ree</p>
