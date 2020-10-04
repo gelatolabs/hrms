@@ -11,7 +11,7 @@ import shutil
 # A Gelato Labs production for Ludum Dare 47
 #
 # Backend code by Matthew Petry (fireTwoOneNine)
-# Makes use of pdfTeX by The pdfTeX Team (Hàn Thế Thành et al), licensed under GPL (see LICENSE.pdftex file)
+# Makes use of pdfTeX by The pdfTeX Team (Hàn Thế Thành et al)
 #
 # All original code under the ISC license (see COPYING for details)
 
@@ -23,22 +23,22 @@ def getNoun(l):
     return noun
 
 def getBadTrait():
-  btnum = randint(1, 177)
+  btnum = randint(0, 177)
   with open("datasets/badtraits.txt") as btfile:
     for i, line in enumerate(btfile):
         if i == btnum:
             return line.strip("\n")
 
 def getGoodTrait():
-  gtnum = randint(1, 137)
+  gtnum = randint(0, 137)
   with open("datasets/goodtraits.txt") as gtfile:
     for i, line in enumerate(gtfile):
         if i == gtnum:
             return line.strip("\n")
 
 def getGoodSkill():
-  csnum = randint(1,45)
-  tsnum = randint(1,16)
+  csnum = randint(0,45)
+  tsnum = randint(0,16)
   if randint(0,1):
       with open("datasets/comm_skills.txt") as csfile:
         for i, line in enumerate(csfile):
@@ -51,14 +51,14 @@ def getGoodSkill():
                 return line.strip("\n")
 
 def getBadSkill():
-  bsnum = randint(1, 13)
+  bsnum = randint(0, 13)
   with open("datasets/bad_skills.txt") as bsfile:
     for i, line in enumerate(bsfile):
         if i == bsnum:
             return line.strip("\n")
             
 def getWorkReason():
-  wrnum = randint(1,8)
+  wrnum = randint(0,7)
   with open("datasets/workreasons.txt") as wrfile:
     for i, line in enumerate(wrfile):
         if i == wrnum:
@@ -71,7 +71,7 @@ def prettyPrintAttributes(attrList):
   return prettyString
 
 def generateName():
-  fnamenum = randint(1, 2718)
+  fnamenum = randint(0, 2718)
   with open("datasets/f_names.txt") as fnamefile:
     for i, line in enumerate(fnamefile):
       if i == fnamenum:
