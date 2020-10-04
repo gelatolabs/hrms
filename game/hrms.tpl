@@ -9,9 +9,15 @@ if not
     email=`{ls -trp $userdir/emails | tail -n 1}
 
 if(~ $"post_arg_generateEmail yes) {
-    cd $sitedir
-    python3 gamegen.py generateResumeEmail $userid >/dev/null
-    cd ../..
+    switch(`{shuf -n1 -i 1-2}) {
+    case 1
+        cd $sitedir
+        python3 gamegen.py generateResumeEmail $userid >/dev/null
+        cd ../..
+    case 2
+        event=`{ls -p etc/templates/events | shuf -n1}
+        cp -r etc/templates/events/$event $userdir/emails/`{uuidgen | sed 's/-//g'}
+    }
 }
 %}
 
@@ -76,7 +82,10 @@ tr:last-child {
     padding: 0 6px 0 0;
 }
 #emailbody {
-    padding: 0 1.5em 0.5em 1.5em;
+    padding: 0;
+}
+#emailbody p {
+    padding: 0 1.5em
 }
 
 .emailBtn:hover {
@@ -110,6 +119,17 @@ tr:last-child {
 #actions input.reject {
     background-color: #f44336;
     border: 3px solid #cf392e;
+}
+
+#black {
+    background-color: #000;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
 }
 </style>
 
@@ -173,6 +193,10 @@ tr:last-child {
 </table></div></td>
 </tr></table>
 
+% if(grep -s 'Power outage' $userdir/emails/$email/subject) {
+<div id="black"></div>
+% }
+
 <script>
 function openEmail(email) {
     var form = document.createElement("form");
@@ -205,6 +229,16 @@ function generateEmail() {
     document.body.appendChild(form);
     form.submit();
 }
+
+% if(grep -s 'Power outage' $userdir/emails/$email/subject) {
+async function poweroutage() {
+    await new Promise(r => setTimeout(r, 5000));
+    document.getElementById("black").style.display = "block";
+    await new Promise(r => setTimeout(r, 5000));
+    document.getElementById("black").style.display = "none";
+}
+poweroutage();
+% }
 </script>
 
 % rm $userdir/emails/$email/unread

@@ -50,15 +50,6 @@ input[type=checkbox] {
 }
 </style>
 
-<script>
-async function login() {
-    document.getElementById("loginBtn").innerHTML = "Close enough...";
-    document.cookie = "username=" + document.getElementById("username").value + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
-    await new Promise(r => setTimeout(r, 1500));
-    window.location.href = "hrms"
-}
-</script>
-
 <div class="center">
     <img style="max-height: 300px" src="img/header.png" />
     <h1 style="margin-top: 0">HRMS&reg;</h1>
@@ -70,3 +61,12 @@ async function login() {
         <button type="button" id="loginBtn" onclick="login()">Login</button>
     </form>
 </div>
+
+<script>
+async function login() {
+    document.getElementById("loginBtn").innerHTML = "Close enough...";
+    document.cookie = "username=" + document.getElementById("username").value + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+    await new Promise(r => setTimeout(r, 1500));
+    window.location.href = "game"
+}
+</script>
