@@ -7,6 +7,8 @@ if(! ~ $"post_arg_email '')
     email=`{echo $post_arg_email | sed 's/[^a-z0-9]//g'}
 if not
     email=`{ls -p $userdir/emails | sort -n | tail -n 1}
+if(test -f $userdir/emails/$email/type)
+    type=`{cat $userdir/emails/$email/type}
 
 emailcount=`{ls $userdir/emails | wc -l}
 switch(`{echo $emailcount'-('$emailcount'/16*16)' | bc}) {
@@ -161,17 +163,6 @@ tr:last-child {
     background-color: #f44336;
     border: 3px solid #cf392e;
 }
-
-#black {
-    background-color: #000;
-    z-index: 99;
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    display: none;
-}
 </style>
 
 <div id="header">
@@ -225,7 +216,6 @@ tr:last-child {
         </table>
     </td></tr>
     <tr style="height: auto"><td id="emailbody">
-%       type=`{cat $userdir/emails/$email/type}
 %       if(~ $"type firing)
 %           employee=`{cat $userdir/emails/$email/name}
 %       tpl_handler $userdir/emails/$email/body
@@ -250,10 +240,6 @@ tr:last-child {
     </td></tr>
 </table></div></td>
 </tr></table>
-
-% if(grep -s 'Power outage' $userdir/emails/$email/subject) {
-<div id="black"></div>
-% }
 
 <script>
 function openEmail(email) {
@@ -287,16 +273,6 @@ function generateEmail() {
     document.body.appendChild(form);
     form.submit();
 }
-
-% if(grep -s 'Power outage' $userdir/emails/$email/subject) {
-async function poweroutage() {
-    await new Promise(r => setTimeout(r, 5000));
-    document.getElementById("black").style.display = "block";
-    await new Promise(r => setTimeout(r, 5000));
-    document.getElementById("black").style.display = "none";
-}
-poweroutage();
-% }
 </script>
 
 % rm $userdir/emails/$email/unread

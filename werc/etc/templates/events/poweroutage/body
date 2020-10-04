@@ -1,3 +1,23 @@
+%{
+if(test -f $userdir/emails/$email/unread) {
+    health=`{cat $userdir/health}
+    echo $health-20 | bc > $userdir/health
+}
+%}
+
+<style>
+#black {
+    background-color: #000;
+    z-index: 99;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none;
+}
+</style>
+
 <p>Yo homie,</p>
 
 <p>Dis be Jonny Goldenhand from cyberfunk power & utilities. We've been experiencing some payment issues with your organization. Please resolve this as soon as possible, and as a friendly reminder we will be temporarily turning off your power in 5 seconds.</p>
@@ -5,3 +25,15 @@
 <p>Have a pleasant day,</p>
 
 <p>JONGO</p>
+
+<div id="black"></div>
+
+<script>
+async function poweroutage() {
+    await new Promise(r => setTimeout(r, 5000));
+    document.getElementById("black").style.display = "block";
+    await new Promise(r => setTimeout(r, 5000));
+    document.getElementById("black").style.display = "none";
+}
+poweroutage();
+</script>
