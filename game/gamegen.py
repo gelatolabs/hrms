@@ -101,15 +101,17 @@ def generateResumeEmail(name,address,goodness,guid):
   emailID = uuid.uuid4().hex
   os.mkdir("../../etc/users/"+guid+"/emails/"+emailID)
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/sender", "w+", encoding="utf-8") as f:
-        f.write(name)  
+        f.write(name) 
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/subject", "w+", encoding="utf-8") as f:
         f.write("Job Application")
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/goodness", "w+", encoding="utf-8") as f:
         f.write(str(goodness))
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/type", "w+", encoding="utf-8") as f:
-        f.write("application")         
+        f.write("application")
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/unread", "w+", encoding="utf-8") as f:
+        f.write("yes")
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/body", "w+", encoding="utf-8") as f:
-        f.write("<object class=\"objectembed\" data=\"/etc/users/"+guid+"/emails/"+emailID+"/attachment.pdf\" width=\"100%\" height=\"100%\" type=\"application/pdf\" style=\"margin: 0\" title=\"\">") 
+        f.write("<object class=\"objectembed\" data=\"/pdf/"+guid+"/"+emailID+".pdf\" width=\"100%\" height=\"100%\" type=\"application/pdf\" style=\"margin: 0\" title=\"\">")
   texText = ""
   with open("datasets/tex-templates/basic.tex", "r+", encoding="utf-8") as f:
         texText = f.read()
@@ -118,7 +120,7 @@ def generateResumeEmail(name,address,goodness,guid):
   
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/attachment.tex", "w+", encoding="utf-8") as f:
         f.write(texText)
-  os.system("cd ../../etc/users/"+guid+"/emails/"+emailID+" && pdflatex attachment.tex")
+  os.system("cd ../../etc/users/"+guid+"/emails/"+emailID+" && pdflatex -output-directory ../../../../../site/game/pdf/"+guid+" -jobname "+emailID+" attachment.tex")
 
 
 if len(sys.argv) == 1:

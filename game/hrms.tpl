@@ -1,11 +1,18 @@
 %{
 username=`{get_cookie username | escape_html}
-userdir=etc/users/`{get_cookie id | sed 's/[^a-z0-9]//g'}
+userid=`{get_cookie id | sed 's/[^a-z0-9]//g'}
+userdir=etc/users/$userid
 
 if(! ~ $"post_arg_email '')
-    email=`{echo $post_arg_email | sed 's/[^0-9]//g'}
+    email=`{echo $post_arg_email | sed 's/[^a-z0-9]//g'}
 if not
     email=`{ls -trp $userdir/emails | tail -n 1}
+
+if(~ $"post_arg_generateEmail yes) {
+    cd $sitedir
+    python3 gamegen.py generateResumeEmail $userid >/dev/null
+    cd ../..
+}
 %}
 
 <style>
@@ -46,10 +53,12 @@ tr:last-child {
     height: 64px;
     padding: 0;
     overflow: hidden;
-    background-color: #2f3a3f;
+}
+#header img {
+    height: 64px;
 }
 #username {
-    color: #fff;
+    color: #000;
     font-size: 32px;
     padding: 7px 16px;
 }
@@ -113,9 +122,12 @@ tr:last-child {
     <tr><td>
         <span>Inbox</span>
     </td></tr>
-    <tr class="active"><td>
+    <tr class="active" onclick="generateEmail()"><td>
         <span><strong>Spam</strong></span>
-        <span style="float: right"><strong>%(`{ls $userdir/emails | wc -l}%)</strong></span>
+%       unread=`{ls $userdir/emails/*/unread | wc -l}
+%       if(! ~ $unread 0) {
+        <span style="float: right"><strong>%($unread%)</strong></span>
+%       }
     </td></tr>
     <tr><td>
         <span>Sent</span>
@@ -132,8 +144,8 @@ tr:last-child {
 </table></div></td>
 <td class="noborder"><div style="width: 25vw"><table style="width: calc(100% + 1px)">
 %   for(i in `{ls -tp $userdir/emails}) {
-    <tr class="emailBtn %(`{if(~ $email $i) echo 'active'}%)" onclick="openEmail(%($i%))"><td>
-        <span><strong>%(`{cat $userdir/emails/$i/subject}%)</strong></span><br />
+    <tr class="emailBtn %(`{if(~ $email $i) echo 'active'}%)" onclick="openEmail('%($i%)')"><td>
+        <span>%(`{if(test -f $userdir/emails/$i/unread) echo '<strong>'}%)%(`{cat $userdir/emails/$i/subject}%)%(`{if(test -f $userdir/emails/$i/unread) echo '</strong>'}%)</span><br />
         <span>%(`{cat $userdir/emails/$i/sender}%)</span>
         <span style="float: right">%(`{/bin/date -r $userdir/emails/$i/body '+%H:%M:%S %Z'}%)</span>
     </td></tr>
@@ -177,4 +189,22 @@ function openEmail(email) {
     document.body.appendChild(form);
     form.submit();
 }
+
+function generateEmail() {
+    var form = document.createElement("form");
+    var generateBtn = document.createElement("input");
+
+    form.method = "POST";
+    form.action = "";
+
+    generateBtn.name = "generateEmail";
+    generateBtn.value = "yes";
+    generateBtn.type = "hidden";
+
+    form.appendChild(generateBtn);
+    document.body.appendChild(form);
+    form.submit();
+}
 </script>
+
+% rm $userdir/emails/$email/unread
