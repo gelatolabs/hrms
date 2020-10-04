@@ -23,14 +23,14 @@ def getNoun(l):
     return noun
 
 def getBadTrait():
-  btnum = randint(0, 177)
+  btnum = randint(0, 176)
   with open("datasets/badtraits.txt") as btfile:
     for i, line in enumerate(btfile):
         if i == btnum:
             return line.strip("\n")
 
 def getGoodTrait():
-  gtnum = randint(0, 137)
+  gtnum = randint(0, 136)
   with open("datasets/goodtraits.txt") as gtfile:
     for i, line in enumerate(gtfile):
         if i == gtnum:
