@@ -106,7 +106,7 @@ def generateSkills(goodness):
   firingreason = ""
   traitmultiplier = 20 + (goodness * 5)
   for i in range(1,randint(3,8)):
-    if traitmultiplier * randint(1,6) > 12:
+    if traitmultiplier * randint(1,6) > 14:
         skills.append(getGoodSkill())
     else:
         skills.append(getBadSkill())
@@ -124,7 +124,11 @@ def generateSkills(goodness):
         elif "stupid games" in skills[len(skills)-1]:
             firingreason = "stupidgame"
         elif "VR dating" in skills[len(skills)-1]:
-            firingreason = "vrlfp"            
+            firingreason = "vrlfp"
+        elif "League" in skills[len(skills)-1]:
+            firingreason = "leagueoflegends"            
+        else:
+            firingreason =  "feetsniffer"
   return skills,firingreason
   
 def generateResumeEmail(name,address,skills,firingreason,traits,goodness,guid,emailID):
