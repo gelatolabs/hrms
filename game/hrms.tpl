@@ -57,7 +57,7 @@ if not if(~ $next event && test -d $userdir/firing) {
         cp -r etc/templates/events/14.5 $userdir/emails/
     if not if(~ $emailcount 20 && ! test -f $userdir/paidparking && ! test -f $userdir/paidparking2)
         cp -r etc/templates/events/20.5 $userdir/emails/
-    if not if(~ $emailcount 46)
+    if not if(~ $emailcount 46 && ! ~ `{cat $userdir/training} 'No thanks')
         cp -r etc/templates/events/46.5 $userdir/emails/
 }
 if not if(~ $next firing && ! test -f $userdir/eventpending && ~ $type mainevent) {
