@@ -1,6 +1,7 @@
 import json
 import os
 import sys
+import random
 from random import randint, randrange
 import uuid
 import shutil
@@ -51,11 +52,38 @@ def getGoodSkill():
                 return line.strip("\n")
 
 def getBadSkill():
-  bsnum = randint(0, 19)
+  bsnum = randint(0, 11)
   with open("datasets/bad_skills.txt") as bsfile:
     for i, line in enumerate(bsfile):
         if i == bsnum:
             return line.strip("\n")
+
+def getFireSkill():
+  fsnum = randint(0, 8)
+  firingreason = ""
+  with open("datasets/fireable_skills.txt") as fsfile:
+    for i, line in enumerate(fsfile):
+        if i == fsnum:
+            # prepare to vomit, it's time to look like we're YandereDev up in here
+            if "bombs" in line:
+                firingreason = "bombs"
+            elif "Assaulting" in line:
+                firingreason = "assaultmen"
+            elif "pets" in line:
+                firingreason = "touchpets"
+            elif "Assassinating" in line:
+                firingreason = "assassin"  
+            elif "Mime" in line:
+                firingreason = "mime"
+            elif "stupid games" in line:
+                firingreason = "stupidgame"
+            elif "VR dating" in line:
+                firingreason = "vrlfp"
+            elif "League" in line:
+                firingreason = "leagueoflegends"
+            elif "feet" in line:
+                firingreason = "feetsniffer"                
+            return line.strip("\n"), firingreason
             
 def getWorkReason():
   wrnum = randint(0,7)
@@ -106,32 +134,16 @@ def generateTraits():
   
 def generateSkills(goodness):
   skills = []
-  firingreason = ""
+  skillsObject = getFireSkill()
+  skills.append(skillsObject[0])
+  firingreason = skillsObject[1]
   traitmultiplier = 20 + (goodness * 5)
   for i in range(1,randint(3,8)):
     if traitmultiplier * randint(1,6) > 14:
         skills.append(getGoodSkill())
     else:
         skills.append(getBadSkill())
-        # prepare to vomit, it's time to look like we're YandereDev up in here
-        if "bombs" in skills[len(skills)-1]:
-            firingreason = "bombs"
-        elif "Assaulting" in skills[len(skills)-1]:
-            firingreason = "assaultmen"
-        elif "pets" in skills[len(skills)-1]:
-            firingreason = "touchpets"
-        elif "Assassinating" in skills[len(skills)-1]:
-            firingreason = "assassin"  
-        elif "Mime" in skills[len(skills)-1]:
-            firingreason = "mime"
-        elif "stupid games" in skills[len(skills)-1]:
-            firingreason = "stupidgame"
-        elif "VR dating" in skills[len(skills)-1]:
-            firingreason = "vrlfp"
-        elif "League" in skills[len(skills)-1]:
-            firingreason = "leagueoflegends"     
-  if firingreason == "":
-    firingreason = "feetsniffer"
+  random.shuffle(skills)        
   return skills,firingreason
   
 def generateResumeEmail(name,address,skills,firingreason,traits,goodness,guid,emailID):
