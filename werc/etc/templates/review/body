@@ -138,7 +138,8 @@ case 64
 % }
 % if not {
 %     if(test -f $userdir/warning && ! ~ `{cat $userdir/warning} $email) {
-<p>You're fired.</p>
+%         touch $userdir/fired
+<p>Despite repeated warnings, your performance has not improved. Clearly you are not MegaCorp material and therefore you must be terminated. Unfortunately no one else knows how to fire people, so I'll leave that to you.</p>
 %     }
 %     if not {
 %         echo $email > $userdir/warning
@@ -148,5 +149,36 @@ case 64
 
 <p>Sincerely,<br />
 Miss Ta Ree</p>
+
+% if(test -f $userdir/fired) {
+</td></tr>
+<tr><td>
+<form id="actions">
+    <input type="button" value="Fire self" class="fire" onclick="fireSelf()">
+</form>
+
+<style>
+.emailBtn:hover {
+    cursor: initial;
+    background-color: initial;
+}
+.emailBtn.active:hover {
+    background-color: #ebf9ff;
+}
+</style>
+
+<script>
+async function fireSelf() {
+    clickSnd.muted = true;
+    fireSnd.play();
+    await new Promise(r => setTimeout(r, 500));
+    window.location.href = "/fired.html";
+}
+
+emailBtns = document.getElementsByClassName("emailBtn");
+for(var i = 0; i < emailBtns.length; i++)
+    emailBtns.item(i).onclick = "";
+</script>
+% }
 
 <script>document.cookie = "clicks=0; expires=Fri, 31 Dec 9999 23:59:59 GMT";</script>
