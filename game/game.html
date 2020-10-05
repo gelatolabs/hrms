@@ -13,6 +13,21 @@ iframe {
 </style>
 
 <iframe src="/hrms" width="100%" height="100%" frameborder="0"></iframe>
-<audio autoplay loop>
-    <source src="audio/music/1.wav">
-</audio>
+
+<script>
+var music = new Audio("audio/music/1.wav");
+music.loop = true;
+
+window.document.addEventListener("updateHealthEvent", updateHealth, false)
+function updateHealth(e) {
+    if(e.detail >= 75 && music.src.slice(-5) != "1.wav")
+        music.src = "audio/music/1.wav";
+    else if(e.detail >= 50 && e.detail < 75 && music.src.slice(-5) != "2.wav")
+        music.src = "audio/music/2.wav";
+    else if(e.detail >= 25 && e.detail < 50 && music.src.slice(-5) != "3.wav")
+        music.src = "audio/music/3.wav";
+    else if(e.detail < 25 && music.src.slice(-5) != "4.wav")
+        music.src = "audio/music/4.wav";
+    music.play();
+}
+</script>

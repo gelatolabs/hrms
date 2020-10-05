@@ -2,6 +2,7 @@
 username=`{get_cookie username | escape_html}
 userid=`{get_cookie id | sed 's/[^a-z0-9]//g'}
 userdir=etc/users/$userid
+health=`{cat $userdir/health}
 
 if(! ~ $"post_arg_email '') {
     email=`{echo $post_arg_email | sed 's/[^a-z0-9.]//g'}
@@ -30,8 +31,8 @@ case 0
 if(~ $"post_arg_hireSubmit Hire && ! ~ $"post_arg_hire '' && ! test -d $userdir/firing) {
     candidate=`{echo $post_arg_hire | sed 's/[^a-z0-9]//g'}
     if(! test -f $userdir/emails/$candidate/hired) {
-        health=`{cat $userdir/health}
-        echo $health-5 | bc > $userdir/health
+        health=`{echo $health-5 | bc}
+        echo $health > $userdir/health
         score=`{cat $userdir/score}
         goodness=`{cat $userdir/emails/$candidate/goodness}
         echo $score+$goodness+1.5 | bc > $userdir/score # average goodness is about -1.5, so we add 1.5
@@ -115,9 +116,9 @@ var cowSnd = new Audio("audio/sfx/cow.wav");
     </td></tr>
     <tr style="height: auto"><td></td></tr>
     <tr style="height: 0"><td style="text-align: center">
-        <img src="img/health-%(`{cat $userdir/health}%).png" style="width: 100%; margin-top: 8px" /><br />
+        <img src="img/health-%($health%).png" style="width: 100%; margin-top: 8px" /><br />
         <label for="health">Mental Health</label><br />
-        <progress id="health" value="%(`{cat $userdir/health}%)" max="100"></progress>
+        <progress id="health" value="%($health%)" max="100"></progress>
     </td></tr>
 </table></div></td>
 <td class="noborder"><div style="width: 25vw"><table style="width: calc(100% + 1px)">
@@ -218,4 +219,6 @@ function aboutInfo() {
 document.body.addEventListener("click", moarclicks, true);
 
 notificationSnd.play();
+
+window.parent.document.dispatchEvent(new CustomEvent("updateHealthEvent", { detail: %($health%) }));
 </script>
