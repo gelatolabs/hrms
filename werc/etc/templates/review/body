@@ -172,7 +172,7 @@ async function fireSelf() {
     clickSnd.muted = true;
     fireSnd.play();
     await new Promise(r => setTimeout(r, 500));
-    window.location.href = "/fired.html";
+    window.location.href = "/fired";
 }
 
 emailBtns = document.getElementsByClassName("emailBtn");
@@ -181,4 +181,4 @@ for(var i = 0; i < emailBtns.length; i++)
 </script>
 % }
 
-<script>document.cookie = "clicks=0; expires=Fri, 31 Dec 9999 23:59:59 GMT";</script>
+<script>document.cookie = "clicks=0; expires=Fri, 31 Dec 9999 23:59:59 UTC; path=/";</script>

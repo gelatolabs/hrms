@@ -37,4 +37,12 @@ async function poweroutage() {
     await new Promise(r => setTimeout(r, 5000));
     music.play();
 }
+
+window.document.addEventListener("reset", reset, false);
+function reset() {
+    document.cookie = "id=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    document.cookie = "name=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
+    document.cookie = "clicks=0; expires=Fri, 31 Dec 9999 23:59:59 UTC; path=/";
+    window.location.href = "/"
+}
 </script>

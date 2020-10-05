@@ -112,7 +112,7 @@ var cowSnd = new Audio("audio/sfx/cow.ogg");
         <span>Trash</span>
     </td></tr>
     <tr class="aboutButton"><td>
-        <a href="/credits.html" target="_blank"><em>About Gelato HRMS Free</em></a>
+        <a href="/credits" target="_blank"><em>About Gelato HRMS Free</em></a>
     </td></tr>
     <tr style="height: auto"><td></td></tr>
     <tr style="height: 0"><td style="text-align: center">
@@ -262,9 +262,9 @@ function getCookie(name) {
 function moarclicks() {
     clickSnd.play();
     if(getCookie("clicks") == null)
-        document.cookie = "clicks=1; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        document.cookie = "clicks=1; expires=Fri, 31 Dec 9999 23:59:59 UTC; path=/";
     else
-        document.cookie = "clicks=" + (parseInt(getCookie("clicks")) + 1) + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+        document.cookie = "clicks=" + (parseInt(getCookie("clicks")) + 1) + "; expires=Fri, 31 Dec 9999 23:59:59 UTC; path=/";
 }
 document.body.addEventListener("click", moarclicks, true);
 

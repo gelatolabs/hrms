@@ -65,7 +65,7 @@ input[type=checkbox] {
 <script>
 async function login() {
     document.getElementById("loginBtn").innerHTML = "Close enough...";
-    document.cookie = "username=" + document.getElementById("username").value + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+    document.cookie = "username=" + document.getElementById("username").value + "; expires=Fri, 31 Dec 9999 23:59:59 UTC; path=/";
     await new Promise(r => setTimeout(r, 1500));
     window.location.href = "game"
 }
