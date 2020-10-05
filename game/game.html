@@ -15,19 +15,19 @@ iframe {
 <iframe src="/hrms" width="100%" height="100%" frameborder="0"></iframe>
 
 <script>
-var music = new Audio("audio/music/1.wav");
+var music = new Audio("audio/music/1.ogg");
 music.loop = true;
 
 window.document.addEventListener("updateHealthEvent", updateHealth, false)
 function updateHealth(e) {
-    if(e.detail >= 75 && music.src.slice(-5) != "1.wav")
-        music.src = "audio/music/1.wav";
-    else if(e.detail >= 50 && e.detail < 75 && music.src.slice(-5) != "2.wav")
-        music.src = "audio/music/2.wav";
-    else if(e.detail >= 25 && e.detail < 50 && music.src.slice(-5) != "3.wav")
-        music.src = "audio/music/3.wav";
-    else if(e.detail < 25 && music.src.slice(-5) != "4.wav")
-        music.src = "audio/music/4.wav";
+    if(e.detail >= 75 && music.src.slice(-5) != "1.ogg")
+        music.src = "audio/music/1.ogg";
+    else if(e.detail >= 50 && e.detail < 75 && music.src.slice(-5) != "2.ogg")
+        music.src = "audio/music/2.ogg";
+    else if(e.detail >= 25 && e.detail < 50 && music.src.slice(-5) != "3.ogg")
+        music.src = "audio/music/3.ogg";
+    else if(e.detail < 25 && music.src.slice(-5) != "4.ogg")
+        music.src = "audio/music/4.ogg";
     music.play();
 }
 </script>
