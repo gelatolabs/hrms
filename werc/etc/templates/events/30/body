@@ -1,12 +1,26 @@
 <p>%($username%),</p>
 
-% switch(`{cat $userdir/townfallevent}) {
-% case 'Bobbing for nails'
-<p>Congratulations on placing 2nd in the bobbing for nails competition! Your prize is a $50 gift card for the Pearly Whitez Mouth Clinic.</p>
-% case 'Laptop toss'
-<p>Congratulations on 1st place in the laptop toss competition! Your throw was just shy of a record set by William Gatez in 1985. Your prize is a brand new wrist rest to promote your posture.</p>
-% case 'Trust falls'
-<p>Unfortunately you failed to place in this event. We do appreciate your dedication and wish you a speedy recovery.</p>
-% case 'Face typing'
-<p>Congratulations on 3rd place in the face typing competition. You really know how to nerd rage with your face! We know it's tempting, but in the name of productivity, please remember to resume using your fingers - despite how many cheetos you may have consumed.</p>
-% }
+%{
+switch(`{cat $userdir/townfallevent}) {
+case 'Bobbing for nails'
+    if(test -f $userdir/emails/$email/unread) {
+        health=`{echo $health+15 | bc}
+        echo $health > $userdir/health
+    }
+    echo '<p>Congratulations on placing 2nd in the bobbing for nails competition! Your prize is a $50 gift card for the Pearly Whitez Mouth Clinic.</p>'
+case 'Laptop toss'
+    if(test -f $userdir/emails/$email/unread) {
+        health=`{echo $health+20 | bc}
+        echo $health > $userdir/health
+    }
+    echo '<p>Congratulations on 1st place in the laptop toss competition! Your throw was just shy of a record set by William Gatez in 1985. Your prize is a brand new wrist rest to promote your posture.</p>'
+case 'Trust falls'
+    echo '<p>Unfortunately you failed to place in this event. We do appreciate your dedication and wish you a speedy recovery.</p>'
+case 'Face typing'
+    if(test -f $userdir/emails/$email/unread) {
+        health=`{echo $health+10 | bc}
+        echo $health > $userdir/health
+    }
+    echo '<p>Congratulations on 3rd place in the face typing competition. You really know how to nerd rage with your face! We know it''s tempting, but in the name of productivity, please remember to resume using your fingers - despite how many cheetos you may have consumed.</p>'
+}
+%}

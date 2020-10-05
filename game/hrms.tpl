@@ -14,7 +14,6 @@ if not
     email=`{ls -p $userdir/emails | sort -n | tail -n 1}
 if(test -f $userdir/emails/$email/type)
     type=`{cat $userdir/emails/$email/type}
-rm $userdir/emails/$email/unread
 
 emailcount=`{ls $userdir/emails | grep -v '\.' | wc -l}
 switch(`{echo $emailcount'-('$emailcount'/16*16)' | bc}) {
@@ -31,8 +30,8 @@ case 0
 if(~ $"post_arg_hireSubmit Hire && ! ~ $"post_arg_hire '' && ! test -d $userdir/firing) {
     candidate=`{echo $post_arg_hire | sed 's/[^a-z0-9]//g'}
     if(! test -f $userdir/emails/$candidate/hired) {
-        health=`{echo $health-5 | bc}
-        echo $health > $userdir/health
+        #health=`{echo $health-5 | bc}
+        #echo $health > $userdir/health
         score=`{cat $userdir/score}
         goodness=`{cat $userdir/emails/$candidate/goodness}
         echo $score+$goodness+1.5 | bc > $userdir/score # average goodness is about -1.5, so we add 1.5
@@ -50,9 +49,10 @@ if(test -f $userdir/emails/$email/rc)
 
 if(~ $next applications && ! test -d $userdir/firing) {
     cd $sitedir
-    python3 gamegen.py generateResumeEmail $userid $emailcount >/dev/null
-    python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+1 | bc} >/dev/null
-    python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+2 | bc} >/dev/null
+    order=`{shuf -e -- -3 1 3}
+    python3 gamegen.py generateResumeEmail $userid $emailcount $order(1) >/dev/null
+    python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+1 | bc} $order(2) >/dev/null
+    python3 gamegen.py generateResumeEmail $userid `{echo $emailcount+2 | bc} $order(3) >/dev/null
     cd ../..
 }
 if not if(~ $next event && test -d $userdir/firing) {
@@ -74,6 +74,8 @@ if not if(~ $next review && ! test -d $userdir/firing) {
 }
 
 greeting=`{shuf -n1 -e 'Hello' 'Hey' 'Howdy' 'Hi' 'Greetings' 'MAAAIL!!' 'Rise and shine' 'Yo' 'Moin moin' 'Welcome' 'ERR: LICENSE EXPIRED' 'Please get back to work' 'Productivity is the key to success' 'Don''t forget to synergize' 'Don''t forget to keep an eye on your mental health' 'Try not to get fired' 'Don''t forget to hire people' 'Don''t click shady links' 'Email is good for you' 'A productive employee is a happy employee' 'When in doubt: email' 'MAILMAILMAILMAILMAILMAILMAIL'}
+
+rm $userdir/emails/$email/unread
 %}
 
 <script>

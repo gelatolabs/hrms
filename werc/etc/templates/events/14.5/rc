@@ -1,2 +1,6 @@
-if(! ~ $"post_arg_parkingfine '')
+if(! ~ $"post_arg_parkingfine '') {
     touch $userdir/paidparking3
+
+    health=`{echo $health-10 | bc}
+    echo $health > $userdir/health
+}

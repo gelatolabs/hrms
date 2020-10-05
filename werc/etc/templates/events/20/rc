@@ -3,4 +3,9 @@ touch $userdir/eventpending
 if(! ~ $"post_arg_townfall '') {
     rm $userdir/eventpending
     echo $post_arg_townfall > $userdir/townfall
+
+    if(~ $post_arg_townfall 'YES!') {
+        health=`{echo $health-10 | bc}
+        echo $health > $userdir/health
+    }
 }

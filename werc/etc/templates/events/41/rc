@@ -3,4 +3,9 @@ touch $userdir/eventpending
 if(! ~ $"post_arg_training '') {
     rm $userdir/eventpending
     echo $post_arg_training > $userdir/training
+
+    if(! ~ $post_arg_training 'No thanks') {
+        health=`{echo $health-10 | bc}
+        echo $health > $userdir/health
+    }
 }

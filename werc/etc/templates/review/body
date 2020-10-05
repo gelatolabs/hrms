@@ -130,6 +130,10 @@ case 64
 </table>
 
 % if(test $total -ge 3) {
+%     if(test -f $userdir/emails/$email/unread) {
+%         health=`{echo $health+15 | bc}
+%         echo $health > $userdir/health
+%     }
 %     rm $userdir/warning
 <p>You are the elite of the elite of the elite. All MegaCorpsers should strive to attain your samurai level of perfection. Keep up the good work but remember, we will be watching.</p>
 % }
@@ -142,6 +146,10 @@ case 64
 <p>Despite repeated warnings, your performance has not improved. Clearly you are not MegaCorp material and therefore you must be terminated. Unfortunately no one else knows how to fire people, so I'll leave that to you.</p>
 %     }
 %     if not {
+%         if(test -f $userdir/emails/$email/unread) {
+%             health=`{echo $health-15 | bc}
+%             echo $health > $userdir/health
+%         }
 %         echo $email > $userdir/warning
 <p>Have you considered thinking at some point? This is simply unacceptable. Dramatic improvement is required ASAP or you will be scheduled for immediate termination.</p>
 %     }
@@ -181,4 +189,7 @@ for(var i = 0; i < emailBtns.length; i++)
 </script>
 % }
 
+% if(test -f $userdir/emails/$email/unread) {
+%     echo 5 > $userdir/score
 <script>document.cookie = "clicks=0; expires=Fri, 31 Dec 9999 23:59:59 UTC; path=/";</script>
+% }

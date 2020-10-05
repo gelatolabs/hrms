@@ -1,6 +1,13 @@
+%{
+if(test -f $userdir/emails/$email/unread) {
+    health=`{echo $health+20 | bc}
+    echo $health > $userdir/health
+}
+%}
+
 <p>Dear %($username%),</p>
 
-<p>Congratulations,  you have been awarded second place in the promotion to Senior Director of Human Resources.  We would like to thank you for almost securing this position and hope that you will have better luck next time!</p>
+<p>Congratulations, you have been awarded second place in the promotion to Senior Director of Human Resources. We would like to thank you for almost securing this position and hope that you will have better luck next time!</p>
 
 <p>Sincerely,<br />
 The HR teem</p>

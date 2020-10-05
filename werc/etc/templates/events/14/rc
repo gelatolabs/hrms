@@ -1,4 +1,4 @@
 if(test -f $userdir/emails/$email/unread) {
-    health=`{cat $userdir/health}
-    echo $health-20 | bc > $userdir/health
+    health=`{echo $health-10 | bc}
+    echo $health > $userdir/health
 }
