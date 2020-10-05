@@ -106,10 +106,29 @@ tr:last-child {
 }
 
 .aboutButton {
-	color:#aaaabb;
-	font-size:12px;
+    color:#aaaabb;
+    font-size:12px;
 }
 
 .aboutButton:hover {
-	background-color:#d4dbde;
+    background-color:#d4dbde;
+}
+
+progress {
+    margin: 4px;
+    height: 20px;
+    border-radius: 20px;
+    background-color: #d4dbde;
+    background: #d4dbde;
+}
+progress::-moz-progress-bar {
+    border-radius: 20px;
+    background-color: #d4dbde;
+}
+progress::-webkit-progress-bar {
+    border-radius: 20px;
+    background-color: #d4dbde;
+}
+progress::-webkit-progress-value {
+    border-radius: 20px;
 }

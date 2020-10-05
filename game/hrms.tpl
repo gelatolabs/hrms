@@ -116,7 +116,62 @@ var cowSnd = new Audio("audio/sfx/cow.wav");
     </td></tr>
     <tr style="height: auto"><td></td></tr>
     <tr style="height: 0"><td style="text-align: center">
-        <img src="img/health-%($health%).png" style="width: 100%; margin-top: 8px" /><br />
+% if(test $health -ge 75) {
+        <img src="img/health1.png" style="width: 100%; margin-top: 8px" /><br />
+        <style>
+            progress::-moz-progress-bar {
+                background: #00ff00;
+            }
+            progress::-webkit-progress-value {
+                background: #00ff00;
+            }
+            progress {
+                color: #00ff00;
+            }
+        </style>
+% }
+% if not if(test $health -ge 50) {
+        <img src="img/health2.png" style="width: 100%; margin-top: 8px" /><br />
+        <style>
+            progress::-moz-progress-bar {
+                background: #ffff00;
+            }
+            progress::-webkit-progress-value {
+                background: #ffff00;
+            }
+            progress {
+                color: #ffff00;
+            }
+        </style>
+% }
+% if not if(test $health -ge 25) {
+        <img src="img/health3.png" style="width: 100%; margin-top: 8px" /><br />
+        <style>
+            progress::-moz-progress-bar {
+                background: #ff7f00;
+            }
+            progress::-webkit-progress-value {
+                background: #ff7f00;
+            }
+            progress {
+                color: #ff7f00;
+            }
+        </style>
+% }
+% if not {
+        <img src="img/health4.png" style="width: 100%; margin-top: 8px" /><br />
+        <style>
+            progress::-moz-progress-bar {
+                background: #ff0000;
+            }
+            progress::-webkit-progress-value {
+                background: #ff0000;
+            }
+            progress {
+                color: #ff0000;
+            }
+        </style>
+% }
         <label for="health">Mental Health</label><br />
         <progress id="health" value="%($health%)" max="100"></progress>
     </td></tr>
