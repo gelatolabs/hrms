@@ -34,7 +34,8 @@ if(~ $"post_arg_hireSubmit Hire && ! ~ $"post_arg_hire '' && ! test -d $userdir/
         echo $health-5 | bc > $userdir/health
         score=`{cat $userdir/score}
         goodness=`{cat $userdir/emails/$candidate/goodness}
-        echo $score+$goodness | bc > $userdir/score
+        echo $score+$goodness+1.5 | bc > $userdir/score # average goodness is about -1.5, so we add 1.5
+                                                        # to normalize for easier perf reviews
         mv $userdir/emails/$candidate/firing $userdir/
         touch $userdir/emails/$candidate/hired
     }

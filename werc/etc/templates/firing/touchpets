@@ -6,6 +6,19 @@
 
 <p>Once that's taken care of, you can get straight to work on selecting a new Junior Synergy Analyst to replace them.</p>
 
+<p>Turnover is natural and to be expected with such a demanding position as Junior Synergy Analyst, so rest assured this particular incident will not be reflected on your performance review.</p>
+
+% goodness=`{cat $userdir/firing/goodness}
+% if(test $goodness -ge 0) {
+<p>%($employee(1)%)'s performance was otherwise excellent. Keep up the good work.</p>
+% }
+% if not if(test $goodness -le -3) {
+<p>That said, %($employee(1)%)'s overall performance was still quite poor. Please hire someone competent next time or risk meeting the same fate as %($employee(1)%).</p>
+% }
+% if not {
+<p>This incident aside, %($employee(1)%)'s overall performance was about average. I'm sure you can do better.</p>
+% }
+
 <p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
 
 <p>Mister E</p>
