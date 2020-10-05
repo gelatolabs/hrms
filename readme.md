@@ -2,7 +2,7 @@
 # Human Resources Manglement Software
 ## A Gelato Labs Production for Ludum Dare 47
 
-You are a newly christened ~~soulless HR drone~~ **Junior Synergy Analyst** employed by MegaCorp Industries Incorporated, the #1 business in the world for Synergized Communications. The big wigs up top have decided it’s time to expand their reach, and it’s time for an influx of new job positions.
+You are a newly christened ~~soulless HR drone~~ **Human Resource Mangler** employed by MegaCorp Industries Incorporated, the #1 business in the world for Synergized Communications. The big wigs up top have decided it’s time to expand their reach, and it’s time for an influx of new job positions.
 
  
 It is your job to fill these positions.
