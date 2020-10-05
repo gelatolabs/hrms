@@ -77,13 +77,13 @@ greeting=`{shuf -n1 -e 'Hello' 'Hey' 'Howdy' 'Hi' 'Greetings' 'MAAAIL!!' 'Rise a
 %}
 
 <script>
-var clickSnd = new Audio("audio/sfx/click.wav");
-var notificationSnd = new Audio("audio/sfx/notification.wav");
-var acceptSnd = new Audio("audio/sfx/accept.wav");
-var fireSnd = new Audio("audio/sfx/fire.wav");
-var rejectSnd = new Audio("audio/sfx/reject.wav");
-var shutdownSnd = new Audio("audio/sfx/shutdown.wav");
-var cowSnd = new Audio("audio/sfx/cow.wav");
+var clickSnd = new Audio("audio/sfx/click.ogg");
+var notificationSnd = new Audio("audio/sfx/notification.ogg");
+var acceptSnd = new Audio("audio/sfx/accept.ogg");
+var fireSnd = new Audio("audio/sfx/fire.ogg");
+var rejectSnd = new Audio("audio/sfx/reject.ogg");
+var shutdownSnd = new Audio("audio/sfx/shutdown.ogg");
+var cowSnd = new Audio("audio/sfx/cow.ogg");
 </script>
 
 <div id="header">
