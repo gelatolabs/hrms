@@ -106,12 +106,11 @@ tr:last-child {
 }
 
 .aboutButton {
-    color:#aaaabb;
     font-size:12px;
 }
-
-.aboutButton:hover {
-    background-color:#d4dbde;
+.aboutButton a {
+    color:#aaaabb;
+    text-decoration: none;
 }
 
 progress {
