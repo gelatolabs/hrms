@@ -174,6 +174,8 @@ def generateResumeEmail(name,address,skills,firingreason,traits,goodness,guid,em
         f.write("Mister E")
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/subject", "w+", encoding="utf-8") as f:
         f.write("Re: "+name)
+  with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/goodness", "w+", encoding="utf-8") as f:
+        f.write(str(goodness))
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/type", "w+", encoding="utf-8") as f:
         f.write("firing")
   with open("../../etc/users/"+guid+"/emails/"+emailID+"/firing/name", "w+", encoding="utf-8") as f:

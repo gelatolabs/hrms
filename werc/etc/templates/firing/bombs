@@ -8,7 +8,7 @@
 
 <p>Turnover is natural and to be expected with such a demanding position as Junior Synergy Analyst, so rest assured this particular incident will not be reflected on your performance review.</p>
 
-% goodness=`{cat $userdir/firing/goodness}
+% goodness=`{cat $userdir/emails/$email/goodness}
 % if(test $goodness -ge 0) {
 <p>%($employee(1)%)'s performance was otherwise excellent. Keep up the good work.</p>
 % }
