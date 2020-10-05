@@ -99,6 +99,9 @@ greeting=`{shuf -n1 -e 'Hello' 'Hey' 'Howdy' 'Hi' 'Greetings' 'MAAAIL!!' 'Rise a
     <tr><td>
         <span>Trash</span>
     </td></tr>
+    <tr onclick="aboutInfo()"><td>
+        <span style="color:#aaaabb;font-size:12px;"><i>About Gelato HRMS Free</i></span>
+    </td></tr>
     <tr style="height: auto"><td></td></tr>
     <tr style="height: 0"><td style="text-align: center">
         <img src="img/health-%(`{cat $userdir/health}%).png" style="width: 100%; margin-top: 8px" /><br />
@@ -194,6 +197,9 @@ function moarclicks() {
         document.cookie = "clicks=1; expires=Fri, 31 Dec 9999 23:59:59 GMT";
     else
         document.cookie = "clicks=" + (parseInt(getCookie("clicks")) + 1) + "; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+}
+function aboutInfo() {
+	alert("Gelato HRMS Free Edition\nVersion 1.04g\nBuilt 2002-04-20\n\nFor more information, please see hrms.gelatolabs.xyz/credits.html");
 }
 document.body.addEventListener("click", moarclicks, true);
 </script>

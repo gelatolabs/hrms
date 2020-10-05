@@ -102,3 +102,12 @@ tr:last-child {
     background-color: #f44336;
     border: 3px solid #cf392e;
 }
+
+.aboutButton {
+	color:#aaaabb;
+	font-size:12px;
+}
+
+.aboutButton:hover {
+	background-color:#d4dbde;
+}

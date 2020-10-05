@@ -1,0 +1,9 @@
+<p>Dear %($username%),</p>
+
+<p>Throwing knives can be quite effective when utilized in the right scenario.  In this case %($employee(1)%)'s aim was a tiny bit off and one of their throws ended up in the back of an intern's leg.</p>
+
+<p>Despite their injuries being non life-threatening, acts of such violence are frowned upon here at MegaCorp.  Perhaps they can apply again in the future when they improve their aim.</p>
+
+<p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
+
+<p>Mister E</p>

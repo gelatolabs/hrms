@@ -1,0 +1,9 @@
+<p>Dear %($username%),</p>
+
+<p>I'm not entirely sure who %($employee(1)%) thinks they are but the custom spam bot they released into the wild of our email server that proclaims their superiority is disruptive to say the least.  We have had a record 2400 complaints to the HR department in the past 24 hours.</p>
+
+<p>They will be systematically removed from our organization.</p>
+
+<p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
+
+<p>Mister E</p>

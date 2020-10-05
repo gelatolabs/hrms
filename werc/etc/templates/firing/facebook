@@ -1,0 +1,9 @@
+<p>Dear %($username%),</p>
+
+<p.Racial slurs are bad enough on their own but we can't believe %($employee(1)%) actually had the audacity to sign up for a Facebook account.  Do they not value the privacy of their data at all?  Everybody knows Facebook is an open book when it comes to distributing personal information to strangers.</p>
+ 
+<p>Normally we could care less but as this occurred on a Megacorp system 1700 documents containing sensitive data were released.  %($employee(1)%) should consider themselves lucky that their only punishment is being fired.</p>
+
+<p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
+
+<p>Mister E</p>

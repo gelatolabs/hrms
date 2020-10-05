@@ -1,0 +1,9 @@
+<p>Dear %($username%),</p>
+
+<p>Even though excellent typing skills are typically associated with higher levels of productivity, in this particular case %($employee(1)%)'s rate of typos has reached astronomically high levels.  It has become so bad that they inadvertently issued a bomb threat to our biggest customer, which resulted in the termination of a multi-million dollar contract.</p>
+
+<p>Please escort them to their vehicle and make sure they turn the key.  You might want to put some distance between yourself and the car before you do.</p>
+
+<p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
+
+<p>Mister E</p>

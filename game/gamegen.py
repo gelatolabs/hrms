@@ -52,7 +52,7 @@ def getGoodSkill():
                 return line.strip("\n")
 
 def getBadSkill():
-  bsnum = randint(0, 11)
+  bsnum = randint(0, 7)
   with open("datasets/bad_skills.txt") as bsfile:
     for i, line in enumerate(bsfile):
         if i == bsnum:
@@ -82,7 +82,15 @@ def getFireSkill():
             elif "League" in line:
                 firingreason = "leagueoflegends"
             elif "feet" in line:
-                firingreason = "feetsniffer"                
+                firingreason = "feetsniffer"
+            elif "Eating ass" in line:
+                firingreason = "asseat" 
+            elif "racial slurs" in line:
+                firingreason = "facebook"
+            elif "confirmed kills" in line:
+                firingreason = "300kills"
+            elif "20WPM" in line:
+                firingreason = "typo"                 
             return line.strip("\n"), firingreason
             
 def getWorkReason():
@@ -139,7 +147,7 @@ def generateSkills(goodness):
   firingreason = skillsObject[1]
   traitmultiplier = 20 + (goodness * 5)
   for i in range(1,randint(3,8)):
-    if traitmultiplier * randint(1,6) > 14:
+    if traitmultiplier * randint(1,6) > 18:
         skills.append(getGoodSkill())
     else:
         skills.append(getBadSkill())
