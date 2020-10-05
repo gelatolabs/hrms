@@ -16,6 +16,12 @@ import shutil
 #
 # All original code under the ISC license (see COPYING for details)
 
+##########################################
+# WARNING: Abandon all hope ye who enter #
+# This code be ugly, full of if-else     #
+# trees and hardcoded values.            #
+########################################## 
+
 def getNoun(l):
   with open("datasets/nouns_"+l+".txt") as nounfile:
     for i, line in enumerate(nounfile, 1):
@@ -52,7 +58,7 @@ def getGoodSkill():
                 return line.strip("\n")
 
 def getBadSkill():
-  bsnum = randint(0, 7)
+  bsnum = randint(0, 28)
   with open("datasets/bad_skills.txt") as bsfile:
     for i, line in enumerate(bsfile):
         if i == bsnum:
