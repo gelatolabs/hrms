@@ -6,10 +6,10 @@
 </td></tr>
 <tr><td>
 <form id="actions" method="POST" action="">
-    <input type="submit" name="training" value="Close quarters combat" class="hire">
-    <input type="submit" name="training" value="Personal hygiene" class="hire">
-    <input type="submit" name="training" value="Anger management" class="hire">
-    <input type="submit" name="training" value="Goldfish farming" class="hire">
-    <input type="submit" name="training" value="No thanks" class="fire">
+    <input type="submit" name="training" value="Close quarters combat" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="training" value="Personal hygiene" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="training" value="Anger management" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="training" value="Goldfish farming" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="training" value="No thanks" class="fire" onclick="clickSnd.muted=true; rejectSnd.play()">
 </form>
 % }

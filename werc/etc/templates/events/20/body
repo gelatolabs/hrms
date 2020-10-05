@@ -18,7 +18,7 @@ Miss Ta Ree</p>
 </td></tr>
 <tr><td>
 <form id="actions" method="POST" action="">
-    <input type="submit" name="townfall" value="yes" class="hire">
-    <input type="submit" name="townfall" value="YES!" class="hire">
+    <input type="submit" name="townfall" value="yes" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="townfall" value="YES!" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
 </form>
 % }

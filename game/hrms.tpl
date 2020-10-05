@@ -75,6 +75,16 @@ if not if(~ $next review && ! test -d $userdir/firing) {
 greeting=`{shuf -n1 -e 'Hello' 'Hey' 'Howdy' 'Hi' 'Greetings' 'MAAAIL!!' 'Rise and shine' 'Yo' 'Moin moin' 'Welcome' 'ERR: LICENSE EXPIRED' 'Please get back to work' 'Productivity is the key to success' 'Don''t forget to synergize' 'Don''t forget to keep an eye on your mental health' 'Try not to get fired' 'Don''t forget to hire people' 'Don''t click shady links' 'Email is good for you' 'A productive employee is a happy employee' 'When in doubt: email' 'MAILMAILMAILMAILMAILMAILMAIL'}
 %}
 
+<script>
+var clickSnd = new Audio("audio/sfx/click.wav");
+var notificationSnd = new Audio("audio/sfx/notification.wav");
+var acceptSnd = new Audio("audio/sfx/accept.wav");
+var fireSnd = new Audio("audio/sfx/fire.wav");
+var rejectSnd = new Audio("audio/sfx/reject.wav");
+var shutdownSnd = new Audio("audio/sfx/shutdown.wav");
+var cowSnd = new Audio("audio/sfx/cow.wav");
+</script>
+
 <div id="header">
     <img src="img/header.png" />
     <span id="username" style="float: right"><span style="font-size: 90%">%($greeting%),</span> <span style="font-weight: 600">%($username%).</span></span>
@@ -137,14 +147,14 @@ greeting=`{shuf -n1 -e 'Hello' 'Hey' 'Howdy' 'Hi' 'Greetings' 'MAAAIL!!' 'Rise a
     <tr><td>
         <form id="actions" method="POST" action="">
             <input type="hidden" name="hire" value="%($email%)">
-            <input type="submit" name="hireSubmit" value="Hire" class="hire">
+            <input type="submit" name="hireSubmit" value="Hire" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
         </form>
     </td></tr>
 %   }
 %   if not if(~ $type firing && test -d $userdir/firing) {
     <tr><td>
         <form id="actions" method="POST" action="">
-            <input type="submit" name="fireSubmit" value="Fire" class="fire">
+            <input type="submit" name="fireSubmit" value="Fire" class="fire" onclick="clickSnd.muted=true; fireSnd.play()">
         </form>
     </td></tr>
 %   }
@@ -194,6 +204,7 @@ function getCookie(name) {
 }
 
 function moarclicks() {
+    clickSnd.play();
     if(getCookie("clicks") == null)
         document.cookie = "clicks=1; expires=Fri, 31 Dec 9999 23:59:59 GMT";
     else
@@ -205,4 +216,6 @@ function aboutInfo() {
 	}
 }
 document.body.addEventListener("click", moarclicks, true);
+
+notificationSnd.play();
 </script>

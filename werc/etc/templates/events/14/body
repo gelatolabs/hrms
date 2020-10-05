@@ -24,8 +24,10 @@
 <script>
 async function poweroutage() {
     await new Promise(r => setTimeout(r, 6500));
+    shutdownSnd.play();
     document.getElementById("black").style.display = "block";
     await new Promise(r => setTimeout(r, 5000));
+    notificationSnd.play();
     document.getElementById("black").style.display = "none";
 }
 poweroutage();

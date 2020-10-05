@@ -9,6 +9,6 @@ Lower management</p>
 </td></tr>
 <tr><td>
 <form id="actions" method="POST" action="">
-    <input type="submit" name="parkingfine" value="Pay fine" class="hire">
+    <input type="submit" name="parkingfine" value="Pay fine" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
 </form>
 % }

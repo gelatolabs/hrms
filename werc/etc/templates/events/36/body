@@ -15,7 +15,7 @@
 </td></tr>
 <tr><td>
 <form id="actions" method="POST" action="">
-    <input type="submit" name="virus" value="Click me!" class="hire">
+    <input type="submit" name="virus" value="Click me!" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
 </form>
 
 <img id="cows" src="/img/cows.png" />
@@ -27,6 +27,7 @@
 
 <script>
 async function cows() {
+    cowSnd.play();
     document.getElementById("cows").style.display = "block";
     await new Promise(r => setTimeout(r, 5000));
     document.getElementById("cows").style.display = "none";

@@ -6,9 +6,9 @@
 </td></tr>
 <tr><td>
 <form id="actions" method="POST" action="">
-    <input type="submit" name="townfallevent" value="Bobbing for nails" class="hire">
-    <input type="submit" name="townfallevent" value="Laptop toss" class="hire">
-    <input type="submit" name="townfallevent" value="Trust falls" class="hire">
-    <input type="submit" name="townfallevent" value="Face typing" class="hire">
+    <input type="submit" name="townfallevent" value="Bobbing for nails" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="townfallevent" value="Laptop toss" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="townfallevent" value="Trust falls" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="townfallevent" value="Face typing" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
 </form>
 % }
