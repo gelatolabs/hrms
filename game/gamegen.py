@@ -31,7 +31,7 @@ def getBadTrait():
             return line.strip("\n")
 
 def getGoodTrait():
-  gtnum = randint(0, 136)
+  gtnum = randint(0, 134)
   with open("datasets/goodtraits.txt") as gtfile:
     for i, line in enumerate(gtfile):
         if i == gtnum:
