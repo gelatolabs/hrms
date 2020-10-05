@@ -110,7 +110,8 @@ def prettyPrintAttributes(attrList):
   return prettyString
 
 def generateName():
-  fnamenum = randint(0, 2718)
+  fnamenum = randint(0, 2717)
+  fname = ""
   with open("datasets/f_names.txt") as fnamefile:
     for i, line in enumerate(fnamefile):
       if i == fnamenum:
