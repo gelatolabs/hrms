@@ -1,0 +1,20 @@
+<p>%($username%),</p>
+
+%{
+switch(`{cat $userdir/businesstrip}) {
+case 'Plane'
+    if(test -f $userdir/emails/$email/unread) {
+        health=`{echo $health+20 | bc}
+        echo $health > $userdir/health
+    }
+    echo '<p>You have chosen well my friend, this luxurious option includes a convenient 12 layovers and will require you to travel without any personal belongings for security clearance. Don''t worry, where you are going there is a plethora of shopping options for your convenience.</p>'
+case 'Boat'
+    if(test -f $userdir/emails/$email/unread) {
+        health=`{echo $health-10 | bc}
+        echo $health > $userdir/health
+    }
+    echo '<p>Ahoy captain!  This was an easy choice, wasn''t it?  You will embark on a magnificent voyage across the sea.  Unfortunately all of the cruise ship tickets were sold out so you will have to shack up with some jolly sailors on a fishing vessel.  Don''t forget to bring your rubber boots!</p>'
+case 'Bicycle'
+    echo '<p>Well aren''t you the adventurous type?  You will be transported via plane and then parachute out once you have reached the DMZ.  Our office is located 200km from the dropzone so make sure to pack a lunch!  Also, due to the logistics of skydiving, you will only be able to jump with a unicycle so work on that balance champ!</p>'
+}
+%}

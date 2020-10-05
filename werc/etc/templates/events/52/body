@@ -1,0 +1,13 @@
+<p>Hello friend,</p>
+
+<p>We have been informed that one of our remote offices in North Korea is in need of your expertise. There have been reports of decreased loyalty and a lack of overall obedience for several areas of operation. You are to investigate these matters and notify senior management immediately of your findings. As we pride ourselves as being an openly democratic organization, we are happy to offer you a wealth of travel options. Please select one of the following options:</p>
+
+% if(! test -f $userdir/businesstrip) {
+</td></tr>
+<tr><td>
+<form id="actions" method="POST" action="">
+    <input type="submit" name="businesstrip" value="Plane" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="businesstrip" value="Boat" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+    <input type="submit" name="businesstrip" value="Bicycle" class="hire" onclick="clickSnd.muted=true; acceptSnd.play()">
+</form>
+% }

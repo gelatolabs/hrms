@@ -1,10 +1,9 @@
-<p>Dear %($username%),</p>
+<p>Dear %($employee(1)%),</p>
 
-% if(test -f $userdir/paidparking3) {
-<p>Thank you for your payment. We appreciate your financial contributions to the health and well being of Binky and wish him a speedy recovery.</p>
-% }
-% if not {
-<p>Binky is dead. Your failure to comply has resulted in the loss of one of the most respected members of the MegaCorp community. We have no choice but to schedule you for immediate termination.</p>
+<p>Your behaviour has become increasingly erratic as of late. Upper management forwarded me a request for a psych eval and with it a report indicating that your productivity has been subpar and you just can't seem to make any good decisions. Also, you never return my calls and haven't been sending me provocative selfies like you used to. As your proctologist, I must recommend that you are immediately terminated without further ado. Also, it's time for us to move on so consider this goodbye.</p>
+
+<p>Sincerely,<br />
+Dr. Bottomz</p>
 
 </td></tr>
 <tr><td>
@@ -34,4 +33,3 @@ emailBtns = document.getElementsByClassName("emailBtn");
 for(var i = 0; i < emailBtns.length; i++)
     emailBtns.item(i).onclick = "";
 </script>
-% }

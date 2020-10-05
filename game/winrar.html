@@ -1,0 +1,77 @@
+<style>
+@font-face {
+    font-family: 'Titillium';
+    font-weight: 200;
+    src: url('font/TitilliumWeb-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Titillium';
+    font-weight: 500;
+    src: url('font/TitilliumWeb-SemiBold.ttf');
+}
+
+body {
+    font-family: 'Titillium';
+    font-weight: 200;
+    background-image: url("img/login-box.png");
+}
+
+.centertext {
+    text-align: center;
+}
+
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    border: 8px outset #eee;
+    padding: 24px 48px;
+    background-image: url("img/login-bg.png");
+}
+
+red {
+    color:#ff0000;
+}
+
+button {
+    background-color: #4caf50;
+    border: 3px solid #419544;
+    color: #fff;
+    border-radius: 6px;
+    padding: 16px 24px;
+    margin: 0.5em 0.2em;
+    font-size: 175%;
+}
+button:hover {
+    opacity: 0.75;
+    cursor: pointer;
+}
+</style>
+<div class="center">
+    <h1>You did it!!!!1</h1>
+    <p>You won the game.</p>
+    <button type="button" onclick="window.parent.document.dispatchEvent(new CustomEvent('reset'));">Play again?</button>
+    <hr>
+    <h1>HRMS</h1>
+    <i>or otherwise known as...</i>
+    <h2><red>H</red>uman <red>R</red>esources <red>M</red>anglement <red>S</red>oftware</h2>
+    <br><br>
+    <a href="https://gelatolabs.xyz/" target="_blank"><img style="max-width:30%;" src="img/logo.png" /></a>
+    <h2>A Gelato Labs Production for Ludum Dare 47: <i>Stuck in a loop</i></h2>
+    <br>
+    <h3>The Gelato Labs "G-Team" for LD47 is:</h3>
+    <b>Programming:</b>
+    <p>Kyle Farwell (kfarwell) - <i>"email" system, firing/hiring, UI mechanics</i></p>
+    <p>Matthew Petry (fireTwoOneNine) - <i>character and résumé generation</i></p>
+    <b>Art:</b>
+    <p>Matthew Petry (fireTwoOneNine)</p>
+    <b>Music and SFX:</b>
+    <p>Alice Dalton (Aliciana)</p>
+    <b>Writing</b>
+    <p>Ryan Refcio</p>
+    <p>Matthew Petry (fireTwoOneNine)</p>
+    <p>Kyle Farwell (kfarwell)</p>
+</div>

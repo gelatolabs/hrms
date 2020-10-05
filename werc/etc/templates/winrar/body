@@ -1,0 +1,33 @@
+<p>Congratulations %($employee(1)%)!!! You have survived your trial period at MegaCorp! Welcome to the rest of your life of your life of your life! We look forward to an eternity of loyal service and you can now proceed to the HR office to receive your customary MegaCorp tramp stamp as a sign of your dedication to our cause.</p>
+
+<p>GG,<br />
+Miss Ta Ree</p>
+
+</td></tr>
+<tr><td>
+<form id="actions">
+    <input type="button" value="Go home" class="hire" onclick="goHome()">
+</form>
+
+<style>
+.emailBtn:hover {
+    cursor: initial;
+    background-color: initial;
+}
+.emailBtn.active:hover {
+    background-color: #ebf9ff;
+}
+</style>
+
+<script>
+async function goHome() {
+    clickSnd.muted = true;
+    acceptSnd.play();
+    await new Promise(r => setTimeout(r, 500));
+    window.location.href = "/winrar";
+}
+
+emailBtns = document.getElementsByClassName("emailBtn");
+for(var i = 0; i < emailBtns.length; i++)
+    emailBtns.item(i).onclick = "";
+</script>

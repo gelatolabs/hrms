@@ -30,8 +30,8 @@ case 0
 if(~ $"post_arg_hireSubmit Hire && ! ~ $"post_arg_hire '' && ! test -d $userdir/firing) {
     candidate=`{echo $post_arg_hire | sed 's/[^a-z0-9]//g'}
     if(! test -f $userdir/emails/$candidate/hired) {
-        #health=`{echo $health-5 | bc}
-        #echo $health > $userdir/health
+        health=`{echo $health-5 | bc}
+        echo $health > $userdir/health
         score=`{cat $userdir/score}
         goodness=`{cat $userdir/emails/$candidate/goodness}
         echo $score+$goodness+1.5 | bc > $userdir/score # average goodness is about -1.5, so we add 1.5
@@ -47,7 +47,13 @@ if not if(~ $"post_arg_fireSubmit Fire) {
 if(test -f $userdir/emails/$email/rc)
     . $userdir/emails/$email/rc
 
-if(~ $next applications && ! test -d $userdir/firing) {
+if(~ $emailcount 65) {
+    cp -r etc/templates/winrar $userdir/emails/999
+}
+if not if(test $health -le 0) {
+    cp -r etc/templates/mentalhealth $userdir/emails/999
+}
+if not if(~ $next applications && ! test -d $userdir/firing) {
     cd $sitedir
     order=`{shuf -e -- -3 1 3}
     python3 gamegen.py generateResumeEmail $userid $emailcount $order(1) >/dev/null
@@ -74,8 +80,6 @@ if not if(~ $next review && ! test -d $userdir/firing) {
 }
 
 greeting=`{shuf -n1 -e 'Hello' 'Hey' 'Howdy' 'Hi' 'Greetings' 'MAAAIL!!' 'Rise and shine' 'Yo' 'Moin moin' 'Welcome' 'ERR: LICENSE EXPIRED' 'Please get back to work' 'Productivity is the key to success' 'Don''t forget to synergize' 'Don''t forget to keep an eye on your mental health' 'Try not to get fired' 'Don''t forget to hire people' 'Don''t click shady links' 'Email is good for you' 'A productive employee is a happy employee' 'When in doubt: email' 'MAILMAILMAILMAILMAILMAILMAIL'}
-
-rm $userdir/emails/$email/unread
 %}
 
 <script>
@@ -274,3 +278,5 @@ notificationSnd.play();
 
 window.parent.document.dispatchEvent(new CustomEvent("updateHealthEvent", { detail: %($health%) }));
 </script>
+
+% rm $userdir/emails/$email/unread
