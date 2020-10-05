@@ -67,7 +67,10 @@ def getWorkReason():
 def prettyPrintAttributes(attrList):
   prettyString = ""
   for attribute in attrList:
-    prettyString = prettyString + " \item " + attribute
+    try: 
+        prettyString = prettyString + " \item " + attribute
+    except TypeError: #python is being a bitch, and i'm tired of it.
+        continue
   return prettyString
 
 def generateName():
@@ -126,9 +129,9 @@ def generateSkills(goodness):
         elif "VR dating" in skills[len(skills)-1]:
             firingreason = "vrlfp"
         elif "League" in skills[len(skills)-1]:
-            firingreason = "leagueoflegends"            
-        else:
-            firingreason =  "feetsniffer"
+            firingreason = "leagueoflegends"     
+  if firingreason == "":
+    firingreason = "feetsniffer"
   return skills,firingreason
   
 def generateResumeEmail(name,address,skills,firingreason,traits,goodness,guid,emailID):
