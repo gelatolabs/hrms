@@ -90,6 +90,9 @@ var fireSnd = new Audio("audio/sfx/fire.ogg");
 var rejectSnd = new Audio("audio/sfx/reject.ogg");
 var shutdownSnd = new Audio("audio/sfx/shutdown.ogg");
 var cowSnd = new Audio("audio/sfx/cow.ogg");
+var goodSnd = new Audio("audio/sfx/good.ogg");
+var badSnd = new Audio("audio/sfx/bad.ogg");
+var midSnd = new Audio("audio/sfx/mid.ogg");
 </script>
 
 <div id="header">
@@ -274,7 +277,9 @@ function moarclicks() {
 }
 document.body.addEventListener("click", moarclicks, true);
 
+% if(! ~ `{echo $email%16 | bc} 0) {
 notificationSnd.play();
+% }
 
 window.parent.document.dispatchEvent(new CustomEvent("updateHealthEvent", { detail: %($health%) }));
 </script>

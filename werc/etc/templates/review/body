@@ -135,14 +135,17 @@ case 64
 %         echo $health > $userdir/health
 %     }
 %     rm $userdir/warning
+<script>goodSnd.play();</script>
 <p>You are the elite of the elite of the elite. All MegaCorpsers should strive to attain your samurai level of perfection. Keep up the good work but remember, we will be watching.</p>
 % }
 % if not if(test $total -ge 0) {
+<script>midSnd.play();</script>
 <p>Well let's face it, you're not the cream of the crop but you're not quite at the bottom of the bucket. If you keep your chin up and dig really deep you might just be somebody someday.</p>
 % }
 % if not {
 %     if(test -f $userdir/warning && ! ~ `{cat $userdir/warning} $email) {
 %         touch $userdir/fired
+<script>badSnd.play();</script>
 <p>Despite repeated warnings, your performance has not improved. Clearly you are not MegaCorp material and therefore you must be terminated. Unfortunately no one else knows how to fire people, so I'll leave that to you.</p>
 %     }
 %     if not {
@@ -151,6 +154,7 @@ case 64
 %             echo $health > $userdir/health
 %         }
 %         echo $email > $userdir/warning
+<script>badSnd.play();</script>
 <p>Have you considered thinking at some point? This is simply unacceptable. Dramatic improvement is required ASAP or you will be scheduled for immediate termination.</p>
 %     }
 % }
