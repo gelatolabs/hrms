@@ -127,10 +127,10 @@ def generateAddress():
   roadname = getNoun(roadtype[0])
   return (str(housenumber) + " " + roadname + " " + roadtype)
   
-def generateTraits():
+def generateTraits(quality):
   traits = []
   goodness = 0
-  traitmultiplier = randint(1,10)
+  traitmultiplier = quality * randint(1,10)
   for i in range(1,randint(3,8)):
     if traitmultiplier * randint(0,10) > 32:
         traits.append(getGoodTrait())
@@ -216,11 +216,12 @@ if len(sys.argv) == 1:
     print(generateSkills(traitobject[1]))
     generateResumeEmail(name,address,traitobject[1],guid)
     
-elif len(sys.argv) == 4 and sys.argv[1] == "generateResumeEmail":
+elif len(sys.argv) == 5 and sys.argv[1] == "generateResumeEmail":
     name = generateName()
     address = generateAddress()
     guid = sys.argv[2]
     emailID = sys.argv[3]
-    traitobject = generateTraits()
+    candidateQuality = float(sys.argv[4])
+    traitobject = generateTraits(candidateQuality)
     skills = generateSkills(traitobject[1])
     generateResumeEmail(name,address,skills[0],skills[1],traitobject[0],traitobject[1],guid,emailID)
