@@ -18,6 +18,7 @@ td {
     vertical-align: baseline;
     box-shadow: 0px 0px 0px 1px #d4dbde inset;
     padding: 6px;
+    height: inherit;
 }
 td.noborder {
     padding: 0;
@@ -59,6 +60,7 @@ tr:last-child {
 }
 #emailbody {
     padding: 0;
+    height: 100%;
 }
 #emailbody p {
     padding: 0 1.5em
