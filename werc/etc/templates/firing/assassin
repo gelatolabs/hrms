@@ -1,8 +1,11 @@
 <p>Dear %($username%),</p>
 
-<p>Passion is something we care about deeply here at MegaCorp.  That is precisely one of the reasons we saw such potential in %($employee(1)%).  Unfortunately passion is something that can often lead to obsession and make a turn for the worse.  %($employee(1)%)'s infatuation with the leader of the Centerist party and in-depth powerpoint presentation involving how they planned to relieve them from their duties was more than disturbing.  As such, we cannot permit them to carry out their duties on MegaCorp time again.  Thank them for their services.</p>
+<p>Passion is something we care about deeply here at MegaCorp. I'm sure this is precisely one of the reasons you saw such potential in %($employee(1)%). Unfortunately, passion is something that can often lead to obsession and take a turn for the worse. %($employee(1)%)'s infatuation with the leader of the Centerist party and in-depth PowerPoint presentation involving how they planned to relieve them from their duties was more than disturbing. As such, we cannot permit them to carry out such activities on MegaCorp time again.<p>
 
-<p>Thank you for your service @ MegaCorp.</p>
+<p>Please go ahead and fire %($employee(1)%).</p>
 
-<p>Have a pleasant day,<br />
-Mister E</p>
+<p>Once that's taken care of, you can get straight to work on selecting a new Junior Synergy Analyst to replace them.</p>
+
+<p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
+
+<p>Mister E</p>

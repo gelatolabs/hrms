@@ -41,7 +41,7 @@ case 16
         total=`{echo $total+1 | bc}
         echo '<td>Exceeds expectations</td>'
     }
-    if not if(test -f $userdir/paidparking) {
+    if not if(test -f $userdir/paidparking2) {
         echo '<td>Meets expectations</td>'
     }
     if not {
@@ -109,19 +109,41 @@ case 48
         echo '<td>Does not meet expectations</td>'
         total=`{echo $total-1 | bc}
     }
+case 64
+    switch(`{cat $userdir/trip}) {
+    case 'Plane'
+        echo '<td>Punktuality</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    case 'Boat'
+        echo '<td>Posture</td>'
+        echo '<td>Does not meet expectations</td>'
+        total=`{echo $total-1 | bc}
+    case 'Bicycle'
+        echo '<td>Asshurtiveness</td>'
+        echo '<td>Exceeds expectations</td>'
+        total=`{echo $total+1 | bc}
+    }
 }
 %}
 </tr>
 </table>
 
 % if(test $total -ge 3) {
+%     rm $userdir/warning
 <p>You are the elite of the elite of the elite. All MegaCorpsers should strive to attain your samurai level of perfection. Keep up the good work but remember, we will be watching.</p>
 % }
 % if not if(test $total -ge 0) {
 <p>Well let's face it, you're not the cream of the crop but you're not quite at the bottom of the bucket. If you keep your chin up and dig really deep you might just be somebody someday.</p>
 % }
 % if not {
+%     if(test -f $userdir/warning && ! ~ `{cat $userdir/warning} $email) {
+<p>You're fired.</p>
+%     }
+%     if not {
+%         echo $email > $userdir/warning
 <p>Have you considered thinking at some point? This is simply unacceptable. Dramatic improvement is required ASAP or you will be scheduled for immediate termination.</p>
+%     }
 % }
 
 <p>Sincerely,<br />

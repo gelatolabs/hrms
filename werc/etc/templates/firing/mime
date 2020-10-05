@@ -1,8 +1,9 @@
 <p>Dear %($username%),</p>
 
-<p>One of the window cleaning contractors that was hired was recently seriously injured.  This was a direct result of %($employee(1)%)'s perfect depiction of a mime pressing up against a glass window.  The contractor believed the window to be real and lost his balance, taking a horrible fall.  Mr. Hump T D will be pressing charges and MegaCorp will transfer all liability to %($employee(1)%).  Unfortunately for this to be legal, they must be relieved of their position.</p>
+<p>One of the window cleaning contractors that was hired was recently seriously injured. This was a direct result of %($employee(1)%)'s perfect depiction of a mime pressing up against a glass window. The contractor believed the window to be real and lost his balance, taking a horrible fall. Mr. Hump T.D. will be pressing charges and MegaCorp will transfer all liability to %($employee(1)%). Unfortunately for this to be legal, they must be relieved of their position.</p>
 
-<p>Thank you for your service @ MegaCorp.</p>
+<p>Once that's taken care of, you can get straight to work on selecting a new Junior Synergy Analyst to replace them.</p>
 
-<p>Have a pleasant day,<br />
-Mister E</p>
+<p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
+
+<p>Mister E</p>

@@ -1,8 +1,11 @@
 <p>Dear %($username%),</p>
 
-<p>%($employee(1)%)'s decision to dedicate an entire 72 hours of company time towards a game development competition may have seemed like a great idea in theory, but in practise it just got them fired.  Goodbye!</p>
+<p>%($employee(1)%)'s decision to dedicate an entire 72 hours of company time towards a game development competition may have seemed like a great idea in theory, but in practise it just got them fired. Goodbye!</p>
 
-<p>Thank you for your service @ MegaCorp.</p>
+<p>Please go ahead and fire %($employee(1)%).</p>
 
-<p>Have a pleasant day,<br />
-Mister E</p>
+<p>Once that's taken care of, you can get straight to work on selecting a new Junior Synergy Analyst to replace them.</p>
+
+<p>Thank you for your service @ MegaCorp and have a pleasant day.</p>
+
+<p>Mister E</p>

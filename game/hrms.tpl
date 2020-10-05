@@ -30,6 +30,8 @@ case 0
 if(~ $"post_arg_hireSubmit Hire && ! ~ $"post_arg_hire '' && ! test -d $userdir/firing) {
     candidate=`{echo $post_arg_hire | sed 's/[^a-z0-9]//g'}
     if(! test -f $userdir/emails/$candidate/hired) {
+        health=`{cat $userdir/health}
+        echo $health-5 | bc > $userdir/health
         score=`{cat $userdir/score}
         goodness=`{cat $userdir/emails/$candidate/goodness}
         echo $score+$goodness | bc > $userdir/score
