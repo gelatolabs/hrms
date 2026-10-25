@@ -1,8 +1,9 @@
 fn login_user {
     id=`{get_cookie id | tr -cd 0-9a-f}
     if(! ~ `{echo -n $id | wc -c} 32 || ! test -d etc/users/$id) {
-        id=`{uuidgen | sed 's/-//g'}
-        cp -r etc/template etc/users/$id
+        id=`{uuidgen -r | sed 's/-//g'}
+        cp -r etc/template etc/users/.new.$id && mv etc/users/.new.$id etc/users/$id
+        mkdir -p site/game/pdf/$id
         set_cookie id $id
     }
 }
