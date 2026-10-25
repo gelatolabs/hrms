@@ -284,4 +284,4 @@ notificationSnd.play();
 window.parent.document.dispatchEvent(new CustomEvent("updateHealthEvent", { detail: %($health%) }));
 </script>
 
-% rm $userdir/emails/$email/unread
+% rm -f $userdir/emails/$email/unread
