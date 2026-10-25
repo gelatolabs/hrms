@@ -1,6 +1,10 @@
 %{
 username=`{get_cookie username | escape_html}
-userid=`{get_cookie id | sed 's/[^a-z0-9]//g'}
+userid=`{get_cookie id | tr -cd 0-9a-f}
+if(! ~ `{echo -n $userid | wc -c} 32 || ! test -d etc/users/$userid) {
+    echo '<a href="/hrms">Start</a>'
+    exit
+}
 userdir=etc/users/$userid
 health=`{cat $userdir/health}
 

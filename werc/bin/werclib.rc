@@ -1,7 +1,8 @@
 fn login_user {
-    if(~ `{get_cookie id} '') {
+    id=`{get_cookie id | tr -cd 0-9a-f}
+    if(! ~ `{echo -n $id | wc -c} 32 || ! test -d etc/users/$id) {
         id=`{uuidgen | sed 's/-//g'}
-        cp -r etc/users/template etc/users/$id
+        cp -r etc/template etc/users/$id
         set_cookie id $id
     }
 }
