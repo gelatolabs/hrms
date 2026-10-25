@@ -8,10 +8,9 @@ if(! ~ `{echo -n $userid | wc -c} 32 || ! test -d etc/users/$userid) {
 userdir=etc/users/$userid
 health=`{cat $userdir/health}
 
-if(! ~ $"post_arg_email '') {
-    email=`{echo $post_arg_email | sed 's/[^a-z0-9.]//g'}
+email=`{echo $"post_arg_email | tr -cd '0-9.'}
+if(~ $#email 1 && ~ $email [0-9]* && ! ~ $email *..* && test -d $userdir/emails/$email)
     echo $email > $userdir/lastopen
-}
 if not if(test -f $userdir/lastopen)
     email=`{cat $userdir/lastopen}
 if not
