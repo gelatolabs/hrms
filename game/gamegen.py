@@ -195,7 +195,7 @@ def generateResumeEmail(name,address,skills,firingreason,traits,goodness,guid,em
   texText = ""
   templates = ['basic', 'res5']
   templateSelect = randint(0,1)
-  with open("datasets/tex-templates/"+templates[templateSelect]+".tex", "r+", encoding="utf-8") as f:
+  with open("datasets/tex-templates/"+templates[templateSelect]+".tex", "r", encoding="utf-8") as f:
         texText = f.read()
   texText = texText.replace("<<name>>", name)
   texText = texText.replace("<<about>>", getWorkReason())
